@@ -19,6 +19,13 @@ namespace do_sort {
       void swap(int* v, int i, int j);
 
     public:
+      sort() {
+      }
+
+      virtual ~sort() {
+        v.clear();
+      }
+
       void set_data(int* v, int s);
       void clear_data();
       void dump(string title);
@@ -36,7 +43,6 @@ namespace do_sort {
       }
 
       ~selection_sort() {
-        v.clear();
       }
 
       void do_sort();
@@ -49,7 +55,6 @@ namespace do_sort {
       }
 
       ~insertion_sort() {
-        v.clear();
       }
 
       void do_sort();
