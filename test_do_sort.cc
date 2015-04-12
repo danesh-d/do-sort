@@ -8,6 +8,9 @@ using namespace std;
 
 // Check whether the list is correctly sorted.
 bool is_sorted(do_sort::sort* ss) {
+  if (ss->size() == 0)
+    return true;
+
   for (int i = 0; i < ss->size() - 1; ++i)
     if ((*ss)[i] > (*ss)[i + 1])
       return false;
@@ -28,9 +31,21 @@ int main() {
 
   // Unit test for the bubble sort.
   do_sort::bubble_sort *bs = new do_sort::bubble_sort();
+
   bs->init(DATA_SIZE);
   bs->do_sort();
   report_test_result(static_cast<do_sort::sort*>(bs), "Bubble sort");
+
+  bs->clear_data();
+  bs->do_sort();
+  report_test_result(static_cast<do_sort::sort*>(bs), "Bubble sort [corner case #1]");
+
+  bs->init(1);
+  bs->do_sort();
+  report_test_result(static_cast<do_sort::sort*>(bs), "Bubble sort [corner case #2]");
+
+  cout << "\033[36m---------------------------------------------------------\033[39m" << endl;
+
 #if DUMP_DATA
   bs->dump("Bubble Sort");
 #endif
@@ -41,6 +56,17 @@ int main() {
   ss->init(DATA_SIZE);
   ss->do_sort();
   report_test_result(static_cast<do_sort::sort*>(ss), "Selection sort");
+
+  ss->clear_data();
+  ss->do_sort();
+  report_test_result(static_cast<do_sort::sort*>(ss), "Selection sort [corner case #1]");
+
+  ss->init(1);
+  ss->do_sort();
+  report_test_result(static_cast<do_sort::sort*>(ss), "Selection sort [corner case #2]");
+
+  cout << "\033[36m---------------------------------------------------------\033[39m" << endl;
+
 #if DUMP_DATA
   ss->dump("Selection Sort");
 #endif
@@ -51,6 +77,17 @@ int main() {
   is->init(DATA_SIZE);
   is->do_sort();
   report_test_result(static_cast<do_sort::sort*>(is), "Insertion sort");
+
+  is->clear_data();
+  is->do_sort();
+  report_test_result(static_cast<do_sort::sort*>(is), "Insertion sort [corner case #1]");
+
+  is->init(1);
+  is->do_sort();
+  report_test_result(static_cast<do_sort::sort*>(is), "Insertion sort [corner case #2]");
+
+  cout << "\033[36m---------------------------------------------------------\033[39m" << endl;
+
 #if DUMP_DATA
   is->dump("Insertion Sort");
 #endif
@@ -61,6 +98,17 @@ int main() {
   ms->init(DATA_SIZE);
   ms->do_sort();
   report_test_result(static_cast<do_sort::sort*>(ms), "Merge sort");
+
+  ms->clear_data();
+  ms->do_sort();
+  report_test_result(static_cast<do_sort::sort*>(ms), "Merge sort [corner case #1]");
+
+  ms->init(1);
+  ms->do_sort();
+  report_test_result(static_cast<do_sort::sort*>(ms), "Merge sort [corner case #2]");
+
+  cout << "\033[36m---------------------------------------------------------\033[39m" << endl;
+
 #if DUMP_DATA
   ms->dump("Merge Sort");
 #endif
@@ -71,6 +119,15 @@ int main() {
   qs->init(DATA_SIZE);
   qs->do_sort();
   report_test_result(static_cast<do_sort::sort*>(qs), "Quick sort");
+
+  qs->clear_data();
+  qs->do_sort();
+  report_test_result(static_cast<do_sort::sort*>(qs), "Quick sort [corner case #1]");
+
+  qs->init(1);
+  qs->do_sort();
+  report_test_result(static_cast<do_sort::sort*>(qs), "Quick sort [corner case #2]");
+
 #if DUMP_DATA
   qs->dump("Quick Sort");
 #endif
