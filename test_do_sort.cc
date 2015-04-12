@@ -24,6 +24,18 @@ void report_test_result(do_sort::sort* ss, string sorting_method) {
 int main() {
   string test_result = "";
 
+  cout << endl << endl << "-------------------- \033[34mTesting Results\033[39m --------------------" << endl;
+
+  // Unit test for the bubble sort.
+  do_sort::bubble_sort *bs = new do_sort::bubble_sort();
+  bs->init(DATA_SIZE);
+  bs->do_sort();
+  report_test_result(static_cast<do_sort::sort*>(bs), "Bubble sort");
+#if DUMP_DATA
+  bs->dump("Bubble Sort");
+#endif
+  delete bs;
+
   // Unit test for the selection sort.
   do_sort::selection_sort *ss = new do_sort::selection_sort();
   ss->init(DATA_SIZE);
@@ -63,6 +75,8 @@ int main() {
   qs->dump("Quick Sort");
 #endif
   delete qs;
+
+  cout << "---------------------------------------------------------" << endl << endl;
 
   return 0;
 }

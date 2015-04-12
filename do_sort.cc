@@ -44,6 +44,24 @@ void do_sort::sort::swap(int* v, int i, int j) {
   v[j] = tmp;
 }
 
+// --- Bubble sort implementation.
+
+void do_sort::bubble_sort::do_sort() {
+  int n = v.size();
+  int j = 0;
+  bool swapped = true;
+
+  while (swapped) {
+    swapped = false;
+
+    for (int i = 0; i < n - j; ++i)
+      if (v[i] > v[i + 1]) {
+        swap(&v[0], i, i + 1);
+        swapped = true;
+      }
+  }
+}
+
 // --- Selection sort implementation.
 
 // Perform the selection sort.

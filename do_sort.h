@@ -36,6 +36,18 @@ namespace do_sort {
       int operator[](int i);
   };
 
+  // --- Bubble sort.
+  class bubble_sort : public sort {
+    public:
+      bubble_sort() {
+      }
+
+      ~bubble_sort() {
+      }
+
+      void do_sort();
+  };
+
   // --- Selection sort.
   class selection_sort : public sort {
     public:
