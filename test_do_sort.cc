@@ -24,13 +24,13 @@ void report_test_result(do_sort::sort* ss, string sorting_method) {
 int main() {
   string test_result = "";
 
-  // Unit test for the bubble sort.
+  // Unit test for the selection sort.
   do_sort::selection_sort *ss = new do_sort::selection_sort();
   ss->init(DATA_SIZE);
   ss->do_sort();
   report_test_result(static_cast<do_sort::sort*>(ss), "Selection sort");
 #if DUMP_DATA
-  ss->dump("Bubble Sort");
+  ss->dump("Selection Sort");
 #endif
   delete ss;
 
@@ -60,7 +60,7 @@ int main() {
   qs->do_sort();
   report_test_result(static_cast<do_sort::sort*>(qs), "Quick sort");
 #if DUMP_DATA
-  qs->dump("Merge Sort");
+  qs->dump("Quick Sort");
 #endif
   delete qs;
 
