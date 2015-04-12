@@ -107,7 +107,7 @@ void do_sort::merge_sort::merge(int* v, int* sorted_v, int low, int border, int 
 
 void do_sort::merge_sort::msort(int* v, int* sorted_v, int low, int high) {
   if (low < high) {
-    int mid = (low + high) / 2;
+    int mid = (low + high) >> 1;
 
     msort(v, sorted_v, low, mid);
     msort(v, sorted_v, mid + 1, high);
@@ -131,7 +131,7 @@ void do_sort::merge_sort::do_sort() {
 void do_sort::quick_sort::qsort(int* v, int left, int right) {
   int l = left;
   int r = right;
-  int pivot = v[(l + r) / 2];
+  int pivot = v[(l + r) >> 1];
 
  // Perform partioning according to the current pivot.
   while (l <= r) {
