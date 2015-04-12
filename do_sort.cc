@@ -44,10 +44,10 @@ void do_sort::sort::swap(int* v, int i, int j) {
   v[j] = tmp;
 }
 
-// --- Bubble sort implementation.
+// --- Selection sort implementation.
 
-// Perform the bubble sort.
-void do_sort::bubble_sort::do_sort() {
+// Perform the selection sort.
+void do_sort::selection_sort::do_sort() {
   for (int i = 0; i < v.size(); ++i) {
     int min_val = v[i];
     int ind = i;
@@ -156,8 +156,6 @@ void do_sort::quick_sort::qsort(int* v, int left, int right) {
 void do_sort::quick_sort::do_sort() {
   qsort(&v[0], 0, v.size() - 1);
 }
-
-// --- Selection sort implementation.
 
 // --- Shell sort implementation.
 

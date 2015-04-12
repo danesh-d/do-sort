@@ -25,14 +25,14 @@ int main() {
   string test_result = "";
 
   // Unit test for the bubble sort.
-  do_sort::bubble_sort *bs = new do_sort::bubble_sort();
-  bs->init(DATA_SIZE);
-  bs->do_sort();
-  report_test_result(static_cast<do_sort::sort*>(bs), "Bubble sort");
+  do_sort::selection_sort *ss = new do_sort::selection_sort();
+  ss->init(DATA_SIZE);
+  ss->do_sort();
+  report_test_result(static_cast<do_sort::sort*>(ss), "Selection sort");
 #if DUMP_DATA
-  bs->dump("Bubble Sort");
+  ss->dump("Bubble Sort");
 #endif
-  delete bs;
+  delete ss;
 
   // Unit test for the insertion sort.
   do_sort::insertion_sort *is = new do_sort::insertion_sort();

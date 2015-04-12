@@ -29,13 +29,13 @@ namespace do_sort {
       int operator[](int i);
   };
 
-  // --- Bubble sort.
-  class bubble_sort : public sort {
+  // --- Selection sort.
+  class selection_sort : public sort {
     public:
-      bubble_sort() {
+      selection_sort() {
       }
 
-      ~bubble_sort() {
+      ~selection_sort() {
         v.clear();
       }
 
