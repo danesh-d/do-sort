@@ -7,7 +7,9 @@ CXXFLAGS = -I$(DIR) -O3
 ODIR = .
 LDIR = .
 
-LIBS = 
+LIBS = -L$(IDIR) -ldo_sort
+
+TEST_TARGET = test_do_sort
 
 _DEPS = do_sort.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
@@ -15,14 +17,22 @@ DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 _OBJ = do_sort.o 
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
+BUILD = $(OBJ) \
+	$(CXX) do_sort.cc -c -o $(CFLAGS) \
+	ar rcs libdo_sort.a do_sort.o
 
-$(ODIR)/%.o: %.c $(DEPS)
-	$(CXX) -c -o $@ $< $(CFLAGS)
+.PHONY: do_sort test clean
 
 do_sort: $(OBJ)
-	$(CXX) -o $@ $^ $(CFLAGS) $(LIBS)
+	$(CXX) do_sort.cc $(CFLAGS) -c
+	ar rcs libdo_sort.a do_sort.o
 
-.PHONY: clean
+test: $(OBJ)
+	$(CXX) do_sort.cc $(CFLAGS) -c
+	ar rcs libdo_sort.a do_sort.o
+	$(CXX) test_do_sort.cc -o test_do_sort $(LIBS)
+	./$(TEST_TARGET)
+	rm ./$(TEST_TARGET)
 
 clean:
-	rm -f $(ODIR)/*.o *~ core $(INCDIR)/*~ do_sort
+	rm -f $(ODIR)/*.o *~ core $(INCDIR)/*~ do_sort libdo_sort.a test_do_sort

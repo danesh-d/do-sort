@@ -7,76 +7,79 @@
 
 using namespace std;
 
-// Abstract class for sort.
-class sort {
-  protected:
-    vector<int> v;
+namespace do_sort {
+  // Abstract class for sort.
+  class sort {
+    protected:
+      vector<int> v;
 
-    virtual void do_sort() = 0;
+      virtual void do_sort() = 0;
 
-  public:
-    void set_data(int* v, int s);
-    void clear_data();
-    void dump(string title);
-    void init(int s);
+    public:
+      void set_data(int* v, int s);
+      void clear_data();
+      void dump(string title);
+      void init(int s);
 
-    int operator[](int i);
-};
+      size_t size();
 
-// --- Bubble sort.
-class bubble_sort : public sort {
-  private:
-    // Swap the elements v[i] and v[j].
-    void swap(vector<int>& v, int i, int j);
+      int operator[](int i);
+  };
 
-  public:
-    bubble_sort() {
-    }
+  // --- Bubble sort.
+  class bubble_sort : public sort {
+    private:
+      // Swap the elements v[i] and v[j].
+      void swap(vector<int>& v, int i, int j);
 
-    ~bubble_sort() {
-      v.clear();
-    }
+    public:
+      bubble_sort() {
+      }
 
-    void do_sort();
-};
+      ~bubble_sort() {
+        v.clear();
+      }
 
-// --- Insertion sort.
-class insertion_sort : public sort {
-  public:
-    insertion_sort() {
-    }
+      void do_sort();
+  };
 
-    ~insertion_sort() {
-      v.clear();
-    }
+  // --- Insertion sort.
+  class insertion_sort : public sort {
+    public:
+      insertion_sort() {
+      }
 
-    void do_sort();
-};
+      ~insertion_sort() {
+        v.clear();
+      }
 
-// --- Merge sort.
-class merge_sort : public sort {
-  private:
-    vector<int> sorted_v;
+      void do_sort();
+  };
 
-    void merge(int* v, int* sorted_v, int low, int border, int high);
-    void msort(int* v, int* sorted_v, int low, int high);
+  // --- Merge sort.
+  class merge_sort : public sort {
+    private:
+      vector<int> sorted_v;
 
-  public:
-    merge_sort() {
-    }
+      void merge(int* v, int* sorted_v, int low, int border, int high);
+      void msort(int* v, int* sorted_v, int low, int high);
 
-    ~merge_sort() {
-      sorted_v.clear();
-    }
+    public:
+      merge_sort() {
+      }
 
-    void do_sort();
-};
+      ~merge_sort() {
+        sorted_v.clear();
+      }
 
-// --- Quick sort implementation.
+      void do_sort();
+  };
 
-// --- Selection sort implementation.
+  // --- Quick sort implementation.
 
-// --- Shell sort implementation.
+  // --- Selection sort implementation.
 
-// --- Heap sort implementation.
+  // --- Shell sort implementation.
 
+  // --- Heap sort implementation.
+}
