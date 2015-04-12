@@ -18,6 +18,7 @@ bool is_sorted(do_sort::sort* ss) {
 int main() {
   string test_result = "";
 
+  // Unit test for the bubble sort.
   do_sort::bubble_sort *bs = new do_sort::bubble_sort();
   bs->init(DATA_SIZE);
   bs->do_sort();
@@ -28,6 +29,7 @@ int main() {
 #endif
   delete bs;
 
+  // Unit test for the insertion sort.
   do_sort::insertion_sort *is = new do_sort::insertion_sort();
   is->init(DATA_SIZE);
   is->do_sort();
@@ -38,6 +40,7 @@ int main() {
 #endif
   delete is;
 
+  // Unit test for the merge sort.
   do_sort::merge_sort *ms = new do_sort::merge_sort();
   ms->init(DATA_SIZE);
   ms->do_sort();
@@ -47,6 +50,17 @@ int main() {
   ms->dump("Merge Sort");
 #endif
   delete ms;
+
+  // Unit test for the quick sort.
+  do_sort::quick_sort *qs = new do_sort::quick_sort();
+  qs->init(DATA_SIZE);
+  qs->do_sort();
+  test_result = (is_sorted(qs)) ? "\033[32mPASSED" : "\033[31mFAILED";
+  cout << "Quick sort test --> " << "[" << test_result << "\033[39m]" << endl;;
+#if DUMP_DATA
+  qs->dump("Merge Sort");
+#endif
+  delete qs;
 
   return 0;
 }

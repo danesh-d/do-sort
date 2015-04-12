@@ -37,14 +37,14 @@ int do_sort::sort::operator[](int i) {
   return v[i];
 }
 
-// --- Bubble sort implementation.
-
 // Swap two values in a vector by giving the indices.
-void do_sort::bubble_sort::swap(vector<int>& v, int i, int j) {
+void do_sort::sort::swap(int* v, int i, int j) {
   int tmp = v[i];
   v[i] = v[j];
   v[j] = tmp;
 }
+
+// --- Bubble sort implementation.
 
 // Perform the bubble sort.
 void do_sort::bubble_sort::do_sort() {
@@ -60,7 +60,7 @@ void do_sort::bubble_sort::do_sort() {
     }
 
     if (ind != i)
-      swap(v, i, ind);
+      swap(&v[0], i, ind);
   }
 }
 
@@ -115,6 +115,7 @@ void do_sort::merge_sort::msort(int* v, int* sorted_v, int low, int high) {
   }
 }
 
+// Perform the merge sort.
 void do_sort::merge_sort::do_sort() {
   sorted_v.resize(v.size());
 
@@ -126,6 +127,35 @@ void do_sort::merge_sort::do_sort() {
 }
 
 // --- Quick sort implementation.
+
+void do_sort::quick_sort::qsort(int* v, int left, int right) {
+  int l = left;
+  int r = right;
+  int pivot = v[(l + r) / 2];
+
+ // Perform partioning according to the current pivot.
+  while (l <= r) {
+    while (v[l] < pivot)
+      ++l;
+
+    while (v[r] > pivot)
+      --r;
+
+    if (l <= r)
+      swap(v, l++, r--);
+  }
+
+  // Sort the two other halfs divided by the pivot.
+  if (left < r)
+    qsort(v, left, r);
+  if (right > l)
+    qsort(v, l, right);
+}
+
+// Perform the quick sort.
+void do_sort::quick_sort::do_sort() {
+  qsort(&v[0], 0, v.size() - 1);
+}
 
 // --- Selection sort implementation.
 

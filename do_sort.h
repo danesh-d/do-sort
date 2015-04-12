@@ -15,6 +15,9 @@ namespace do_sort {
 
       virtual void do_sort() = 0;
 
+      // Swap the elements v[i] and v[j].
+      void swap(int* v, int i, int j);
+
     public:
       void set_data(int* v, int s);
       void clear_data();
@@ -28,10 +31,6 @@ namespace do_sort {
 
   // --- Bubble sort.
   class bubble_sort : public sort {
-    private:
-      // Swap the elements v[i] and v[j].
-      void swap(vector<int>& v, int i, int j);
-
     public:
       bubble_sort() {
       }
@@ -76,6 +75,19 @@ namespace do_sort {
   };
 
   // --- Quick sort implementation.
+  class quick_sort : public sort {
+    private:
+      void qsort(int* v, int left, int right);
+
+    public:
+      quick_sort() {
+      }
+
+      ~quick_sort() {
+      }
+
+      void do_sort();
+  };
 
   // --- Selection sort implementation.
 
@@ -83,3 +95,4 @@ namespace do_sort {
 
   // --- Heap sort implementation.
 }
+
