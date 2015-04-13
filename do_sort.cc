@@ -119,8 +119,7 @@ void do_sort::merge_sort::merge(int* v, int* sorted_v, int low, int border, int 
     sorted_v[ptr++] = v[border++];
 
   // Copy the sorted list to the original.
-  for (int i = 0; i < num; ++i, --high)
-    v[high] = sorted_v[high];
+  memcpy(v + high - num + 1, sorted_v + high - num + 1, num * sizeof(int));
 }
 
 void do_sort::merge_sort::msort(int* v, int* sorted_v, int low, int high) {
