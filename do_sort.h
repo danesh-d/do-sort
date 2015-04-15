@@ -16,7 +16,9 @@ namespace do_sort {
       virtual void do_sort() = 0;
 
       // Swap the elements v[i] and v[j].
-      void swap(int* v, int i, int j);
+      void swap(vector<int>& v, int i, int j);
+      // Merge two sorted lists.
+      void merge(vector<int>& v, vector<int>& sorted_v, int low, int border, int high);
 
     public:
       sort() {
@@ -26,7 +28,7 @@ namespace do_sort {
         v.clear();
       }
 
-      void set_data(int* v, int s);
+      void set_data(vector<int>& arr, int s);
       void clear_data();
       void dump(string title);
       void init(int s);
@@ -77,8 +79,7 @@ namespace do_sort {
     private:
       vector<int> sorted_v;
 
-      void merge(int* v, int* sorted_v, int low, int border, int high);
-      void msort(int* v, int* sorted_v, int low, int high);
+      void msort(vector<int>& v, vector<int>& sorted_v, int low, int high);
 
     public:
       merge_sort() {
@@ -94,7 +95,7 @@ namespace do_sort {
   // --- Quick sort implementation.
   class quick_sort : public sort {
     private:
-      void qsort(int* v, int left, int right);
+      void qsort(vector<int>& v, int left, int right);
 
     public:
       quick_sort() {
@@ -106,7 +107,17 @@ namespace do_sort {
       void do_sort();
   };
 
-  // --- Selection sort implementation.
+  // --- Strand sort implementation.
+  class strand_sort : public sort {
+    public:
+      strand_sort() {
+      }
+
+      ~strand_sort() {
+      }
+
+      void do_sort();
+  };
 
   // --- Shell sort implementation.
 

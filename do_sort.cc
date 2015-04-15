@@ -9,9 +9,8 @@ size_t do_sort::sort::size() {
 }
 
 // Fill the vector with the input data.
-void do_sort::sort::set_data(int* arr, int s) {
-  for (int i = 0; i < s; ++i)
-    v.push_back(arr[i]);
+void do_sort::sort::set_data(vector<int>& arr, int s) {
+  v = arr;
 }
 
 void do_sort::sort::clear_data() {
@@ -38,10 +37,33 @@ int do_sort::sort::operator[](int i) {
 }
 
 // Swap two values in a vector by giving the indices.
-void do_sort::sort::swap(int* v, int i, int j) {
+void do_sort::sort::swap(vector<int>& v, int i, int j) {
   int tmp = v[i];
   v[i] = v[j];
   v[j] = tmp;
+}
+
+// Merge two sorted lists into one list.
+void do_sort::sort::merge(vector<int>& v, vector<int>& sorted_v, int low, int border, int high) {
+  int num = high - low + 1;
+  int ptr = low;
+  int low_end = border - 1;
+
+  // Start mergin two lists until a list is finished before the other or if
+  // both lists are finished at the same time, if they have same length.
+  while (low <= low_end && border <= high)
+    sorted_v[ptr++] = (v[low] < v[border]) ? v[low++] : v[border++];
+
+  // Merge the ramaining.
+  while (low <= low_end)
+    sorted_v[ptr++] = v[low++];
+
+  // Merge the ramaining.
+  while (border <= high)
+    sorted_v[ptr++] = v[border++];
+
+  // Copy the sorted list to the original.
+  memcpy(&v[high - num + 1], &sorted_v[high - num + 1], num * sizeof(int));
 }
 
 // --- Bubble sort implementation.
@@ -56,7 +78,7 @@ void do_sort::bubble_sort::do_sort() {
 
     for (int i = 0; i < n - j; ++i)
       if (v[i] > v[i + 1]) {
-        swap(&v[0], i, i + 1);
+        swap(v, i, i + 1);
         swapped = true;
       }
   }
@@ -78,7 +100,7 @@ void do_sort::selection_sort::do_sort() {
     }
 
     if (ind != i)
-      swap(&v[0], i, ind);
+      swap(v, i, ind);
   }
 }
 
@@ -99,30 +121,7 @@ void do_sort::insertion_sort::do_sort() {
 
 // --- Merge sort implementation.
 
-// Merge two sorted lists into one list.
-void do_sort::merge_sort::merge(int* v, int* sorted_v, int low, int border, int high) {
-  int num = high - low + 1;
-  int ptr = low;
-  int low_end = border - 1;
-
-  // Start mergin two lists until a list is finished before the other or if
-  // both lists are finished at the same time, if they have same length.
-  while (low <= low_end && border <= high)
-    sorted_v[ptr++] = (v[low] < v[border]) ? v[low++] : v[border++];
-
-  // Merge the ramaining.
-  while (low <= low_end)
-    sorted_v[ptr++] = v[low++];
-
-  // Merge the ramaining.
-  while (border <= high)
-    sorted_v[ptr++] = v[border++];
-
-  // Copy the sorted list to the original.
-  memcpy(v + high - num + 1, sorted_v + high - num + 1, num * sizeof(int));
-}
-
-void do_sort::merge_sort::msort(int* v, int* sorted_v, int low, int high) {
+void do_sort::merge_sort::msort(vector<int>& v, vector<int>& sorted_v, int low, int high) {
   if (low < high) {
     int mid = (low + high) >> 1;
 
@@ -137,7 +136,7 @@ void do_sort::merge_sort::do_sort() {
   sorted_v.resize(v.size());
 
   if (v.size() > 1)
-    msort(&v[0], &sorted_v[0], 0, v.size() - 1);
+    msort(v, sorted_v, 0, v.size() - 1);
 
   v = sorted_v;
   sorted_v.clear();
@@ -145,7 +144,7 @@ void do_sort::merge_sort::do_sort() {
 
 // --- Quick sort implementation.
 
-void do_sort::quick_sort::qsort(int* v, int left, int right) {
+void do_sort::quick_sort::qsort(vector<int>& v, int left, int right) {
   int l = left;
   int r = right;
   int pivot = v[(l + r) >> 1];
@@ -171,7 +170,13 @@ void do_sort::quick_sort::qsort(int* v, int left, int right) {
 
 // Perform the quick sort.
 void do_sort::quick_sort::do_sort() {
-  qsort(&v[0], 0, v.size() - 1);
+  qsort(v, 0, v.size() - 1);
+}
+
+// --- Strand sort implementation.
+
+// Perform the quick sort.
+void do_sort::strand_sort::do_sort() {
 }
 
 // --- Shell sort implementation.
