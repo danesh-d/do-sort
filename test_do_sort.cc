@@ -128,10 +128,31 @@ int main() {
   qs->do_sort();
   report_test_result(static_cast<do_sort::sort*>(qs), "Quick sort [corner case #2]");
 
+  cout << "\033[36m---------------------------------------------------------\033[39m" << endl;
+
 #if DUMP_DATA
   qs->dump("Quick Sort");
 #endif
   delete qs;
+
+  // Unit test for the strand sort.
+  do_sort::strand_sort *sts = new do_sort::strand_sort();
+  sts->init(DATA_SIZE);
+  sts->do_sort();
+  report_test_result(static_cast<do_sort::sort*>(sts), "Strand sort");
+
+  sts->clear_data();
+  sts->do_sort();
+  report_test_result(static_cast<do_sort::sort*>(sts), "Strand sort [corner case #1]");
+
+  sts->init(1);
+  sts->do_sort();
+  report_test_result(static_cast<do_sort::sort*>(sts), "Strand sort [corner case #2]");
+
+#if DUMP_DATA
+  sts->dump("Strand Sort");
+#endif
+  delete sts;
 
   cout << "---------------------------------------------------------" << endl << endl;
 
