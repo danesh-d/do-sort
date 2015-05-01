@@ -77,16 +77,16 @@ namespace do_sort {
   // --- Merge sort.
   class merge_sort : public sort {
     private:
-      vector<int> sorted_v;
+      vector<int> aux;
 
-      void msort(vector<int>& v, vector<int>& sorted_v, int low, int high);
+      void msort(vector<int>& v, vector<int>& aux, int low, int high);
 
     public:
       merge_sort() {
       }
 
       ~merge_sort() {
-        sorted_v.clear();
+        aux.clear();
       }
 
       void do_sort();

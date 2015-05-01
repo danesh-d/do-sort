@@ -44,7 +44,7 @@ void do_sort::sort::swap(vector<int>& v, int i, int j) {
 }
 
 // Merge two sorted lists into one list.
-void do_sort::sort::merge(vector<int>& v, vector<int>& sorted_v, int low, int border, int high) {
+void do_sort::sort::merge(vector<int>& v, vector<int>& aux, int low, int border, int high) {
   int num = high - low + 1;
   int ptr = low;
   int low_end = border - 1;
@@ -52,18 +52,18 @@ void do_sort::sort::merge(vector<int>& v, vector<int>& sorted_v, int low, int bo
   // Start mergin two lists until a list is finished before the other or if
   // both lists are finished at the same time, if they have same length.
   while (low <= low_end && border <= high)
-    sorted_v[ptr++] = (v[low] < v[border]) ? v[low++] : v[border++];
+    aux[ptr++] = (v[low] < v[border]) ? v[low++] : v[border++];
 
   // Merge the ramaining.
   while (low <= low_end)
-    sorted_v[ptr++] = v[low++];
+    aux[ptr++] = v[low++];
 
   // Merge the ramaining.
   while (border <= high)
-    sorted_v[ptr++] = v[border++];
+    aux[ptr++] = v[border++];
 
   // Copy the sorted list to the original.
-  memcpy(&v[high - num + 1], &sorted_v[high - num + 1], num * sizeof(int));
+  memcpy(&v[high - num + 1], &aux[high - num + 1], num * sizeof(int));
 }
 
 // --- Bubble sort implementation.
@@ -121,24 +121,24 @@ void do_sort::insertion_sort::do_sort() {
 
 // --- Merge sort implementation.
 
-void do_sort::merge_sort::msort(vector<int>& v, vector<int>& sorted_v, int low, int high) {
+void do_sort::merge_sort::msort(vector<int>& v, vector<int>& aux, int low, int high) {
   if (low < high) {
     int mid = (low + high) >> 1;
 
-    msort(v, sorted_v, low, mid);
-    msort(v, sorted_v, mid + 1, high);
-    merge(v, sorted_v, low, mid + 1, high);
+    msort(v, aux, low, mid);
+    msort(v, aux, mid + 1, high);
+    merge(v, aux, low, mid + 1, high);
   }
 }
 
 // Perform the merge sort.
 void do_sort::merge_sort::do_sort() {
-  sorted_v.resize(v.size());
+  aux.resize(v.size());
 
   if (v.size() > 1)
-    msort(v, sorted_v, 0, v.size() - 1);
+    msort(v, aux, 0, v.size() - 1);
 
-  sorted_v.clear();
+  aux.clear();
 }
 
 // --- Quick sort implementation.
