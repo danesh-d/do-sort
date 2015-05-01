@@ -138,7 +138,6 @@ void do_sort::merge_sort::do_sort() {
   if (v.size() > 1)
     msort(v, sorted_v, 0, v.size() - 1);
 
-  v = sorted_v;
   sorted_v.clear();
 }
 
