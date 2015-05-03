@@ -1,5 +1,5 @@
 
-#include "do_sort.h"
+#include "../src/do_sort.h"
 
 #define DATA_SIZE 20
 #define DUMP_DATA 0
