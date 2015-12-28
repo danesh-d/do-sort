@@ -25,9 +25,11 @@ BUILD = $(OBJ) \
 .PHONY: do_sort test clean
 
 do_sort: $(OBJ)
+	mkdir -p $(LDIR)
 	ar rcs $(LDIR)/libdo_sort.a $(ODIR)/do_sort.o
 
 test: $(OBJ)
+	mkdir -p $(LDIR)
 	ar rcs $(LDIR)/libdo_sort.a $(ODIR)/do_sort.o
 	$(CXX) $(TDIR)/test_do_sort.cc -o $(TDIR)/test_do_sort $(LIBS)
 	$(TDIR)/$(TEST_TARGET)
