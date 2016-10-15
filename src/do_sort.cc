@@ -76,8 +76,17 @@ void do_sort::sort::merge(vector<int>& v,
   memcpy(&v[high - num + 1], &aux[high - num + 1], num * sizeof(int));
 }
 
-void do_sort::sort::do_sort() {
-  specific_do_sort();
+double do_sort::sort::do_sort(bool elapsed_time) {
+  if (!elapsed_time) {
+    specific_do_sort();
+  } else {
+    clock_t begin = clock();
+
+    specific_do_sort();
+
+    clock_t end = clock();
+    return double(end - begin) / CLOCKS_PER_SEC;
+  }
 }
 
 // --- Bubble sort implementation.

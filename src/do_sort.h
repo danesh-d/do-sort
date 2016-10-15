@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <vector>
+#include <ctime>
 
 #include <string.h>
 #include <stdlib.h>
@@ -39,7 +40,7 @@ namespace do_sort {
       void clear_data();
       void dump(string title);
       void init(int s);
-      void do_sort();
+      double do_sort(bool elapsed_time);
 
       size_t size();
 
