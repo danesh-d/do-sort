@@ -47,7 +47,11 @@ void do_sort::sort::swap(vector<int>& v, int i, int j) {
 }
 
 // Merge two sorted lists into one list.
-void do_sort::sort::merge(vector<int>& v, vector<int>& aux, int low, int border, int high) {
+void do_sort::sort::merge(vector<int>& v,
+                          vector<int>& aux,
+                          int low,
+                          int border,
+                          int high) {
   int num = high - low + 1;
   int ptr = low;
   int low_end = border - 1;
@@ -130,7 +134,10 @@ void do_sort::insertion_sort::do_sort() {
 
 // --- Merge sort implementation.
 
-void do_sort::merge_sort::msort(vector<int>& v, vector<int>& aux, int low, int high) {
+void do_sort::merge_sort::msort(vector<int>& v,
+                                vector<int>& aux,
+                                int low,
+                                int high) {
   if (low < high) {
     int mid = (low + high) >> 1;
 
@@ -153,7 +160,8 @@ void do_sort::merge_sort::do_sort() {
 
 // --- Quick sort implementation.
 
-void do_sort::quick_sort::qsort(vector<int>& v, int left, int right) {
+// Sort an array recursively by assigning a pivot and partitioning.
+void do_sort::quick_sort::qsort_partition(vector<int>& v, int left, int right) {
   int l = left;
   int r = right;
   int pivot = v[(l + r) >> 1];
@@ -173,19 +181,19 @@ void do_sort::quick_sort::qsort(vector<int>& v, int left, int right) {
     }
   }
 
-  // Sort the two other halfs divided by the pivot.
+  // Sort the two other halfs partitioned by the pivot.
   if (left < r) {
-    qsort(v, left, r);
+    qsort_partition(v, left, r);
   }
 
   if (right > l) {
-    qsort(v, l, right);
+    qsort_partition(v, l, right);
   }
 }
 
 // Perform the quick sort.
 void do_sort::quick_sort::do_sort() {
-  qsort(v, 0, v.size() - 1);
+  qsort_partition(v, 0, v.size() - 1);
 }
 
 // --- Strand sort implementation.

@@ -17,8 +17,13 @@ namespace do_sort {
 
       // Swap the elements v[i] and v[j].
       void swap(vector<int>& v, int i, int j);
+
       // Merge two sorted lists.
-      void merge(vector<int>& v, vector<int>& sorted_v, int low, int border, int high);
+      void merge(vector<int>& v,
+                 vector<int>& sorted_v,
+                 int low,
+                 int border,
+                 int high);
 
     public:
       sort() {
@@ -95,7 +100,7 @@ namespace do_sort {
   // --- Quick sort implementation.
   class quick_sort : public sort {
     private:
-      void qsort(vector<int>& v, int left, int right);
+      void qsort_partition(vector<int>& v, int left, int right);
 
     public:
       quick_sort() {
