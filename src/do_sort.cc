@@ -20,16 +20,18 @@ void do_sort::sort::clear_data() {
 // Dump values in a vector.
 void do_sort::sort::dump(string title) {
   cout << "---------- " << title << " ----------" << endl;
-  for (int i = 0; i < v.size(); ++i)
+  for (int i = 0; i < v.size(); ++i) {
     cout << "v[" << i << "]: " << v[i] << endl;
+  }
 }
 
 // Initialize a vector with the given size with some random data.
 void do_sort::sort::init(int s) {
   srand((unsigned)time(NULL));
 
-  for (int i = 0; i < s; ++i)
+  for (int i = 0; i < s; ++i) {
     v.push_back(rand() % s + 1);
+  }
 }
 
 int do_sort::sort::operator[](int i) {
@@ -39,6 +41,7 @@ int do_sort::sort::operator[](int i) {
 // Swap two values in a vector by giving the indices.
 void do_sort::sort::swap(vector<int>& v, int i, int j) {
   int tmp = v[i];
+
   v[i] = v[j];
   v[j] = tmp;
 }
@@ -51,16 +54,19 @@ void do_sort::sort::merge(vector<int>& v, vector<int>& aux, int low, int border,
 
   // Start mergin two lists until a list is finished before the other or if
   // both lists are finished at the same time, if they have same length.
-  while (low <= low_end && border <= high)
+  while (low <= low_end && border <= high) {
     aux[ptr++] = (v[low] < v[border]) ? v[low++] : v[border++];
+  }
 
   // Merge the ramaining.
-  while (low <= low_end)
+  while (low <= low_end) {
     aux[ptr++] = v[low++];
+  }
 
   // Merge the ramaining.
-  while (border <= high)
+  while (border <= high) {
     aux[ptr++] = v[border++];
+  }
 
   // Copy the sorted list to the original.
   memcpy(&v[high - num + 1], &aux[high - num + 1], num * sizeof(int));
@@ -76,11 +82,12 @@ void do_sort::bubble_sort::do_sort() {
   while (swapped) {
     swapped = false;
 
-    for (int i = 0; i < n - j; ++i)
+    for (int i = 0; i < n - j; ++i) {
       if (v[i] > v[i + 1]) {
         swap(v, i, i + 1);
         swapped = true;
       }
+    }
   }
 }
 
@@ -99,8 +106,9 @@ void do_sort::selection_sort::do_sort() {
       }
     }
 
-    if (ind != i)
+    if (ind != i) {
       swap(v, i, ind);
+    }
   }
 }
 
@@ -112,8 +120,9 @@ void do_sort::insertion_sort::do_sort() {
     int elem = v[i];
     int j = i;
 
-    while (j > 0 && v[j - 1] > elem)
+    while (j > 0 && v[j - 1] > elem) {
       v[j] = v[--j];
+    }
 
     v[j] = elem;
   }
@@ -135,8 +144,9 @@ void do_sort::merge_sort::msort(vector<int>& v, vector<int>& aux, int low, int h
 void do_sort::merge_sort::do_sort() {
   aux.resize(v.size());
 
-  if (v.size() > 1)
+  if (v.size() > 1) {
     msort(v, aux, 0, v.size() - 1);
+  }
 
   aux.clear();
 }
@@ -150,21 +160,27 @@ void do_sort::quick_sort::qsort(vector<int>& v, int left, int right) {
 
  // Perform partioning according to the current pivot.
   while (l <= r) {
-    while (v[l] < pivot)
+    while (v[l] < pivot) {
       ++l;
+    }
 
-    while (v[r] > pivot)
+    while (v[r] > pivot) {
       --r;
+    }
 
-    if (l <= r)
+    if (l <= r) {
       swap(v, l++, r--);
+    }
   }
 
   // Sort the two other halfs divided by the pivot.
-  if (left < r)
+  if (left < r) {
     qsort(v, left, r);
-  if (right > l)
+  }
+
+  if (right > l) {
     qsort(v, l, right);
+  }
 }
 
 // Perform the quick sort.
@@ -188,8 +204,9 @@ void do_sort::strand_sort::do_sort() {
   // Go through all elements, until all elements have been processed.
   while (n > 0) {
     // Ignore all already processed elements in the list.
-    while (!flags[ptr])
+    while (!flags[ptr]) {
       ptr++;
+    }
 
     int e = v[ptr];
     int m = e;
@@ -198,21 +215,23 @@ void do_sort::strand_sort::do_sort() {
     sub_v.push_back(e);
 
     // Generate a sorted list based on the first element.
-    for (int i = ptr; i < v.size(); ++i)
+    for (int i = ptr; i < v.size(); ++i) {
       if (flags[i] && v[i] >= m) {
         m = v[i];
         sub_v.push_back(m);
         flags[i] = false;
         --n;
       }
+    }
 
     // Save the merging point where the current sorting list and the newly
     // generated sorting list will be merged.
     int mid = sorted_v.size();
 
     // Add the new sorted list to the already sorted list.
-    for (int i = 0; i < sub_v.size(); ++i)
+    for (int i = 0; i < sub_v.size(); ++i) {
       sorted_v.push_back(sub_v[i]);
+    }
 
     // Perform the merge so form the new sorted list.
     merge(sorted_v, aux, 0, mid, sorted_v.size() - 1);

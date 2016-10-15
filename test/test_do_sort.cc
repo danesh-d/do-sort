@@ -8,12 +8,15 @@ using namespace std;
 
 // Check whether the list is correctly sorted.
 bool is_sorted(do_sort::sort* ss) {
-  if (ss->size() == 0)
+  if (ss->size() == 0) {
     return true;
+  }
 
-  for (int i = 0; i < ss->size() - 1; ++i)
-    if ((*ss)[i] > (*ss)[i + 1])
+  for (int i = 0; i < ss->size() - 1; ++i) {
+    if ((*ss)[i] > (*ss)[i + 1]) {
       return false;
+    }
+  }
 
   return true;
 }
@@ -21,13 +24,21 @@ bool is_sorted(do_sort::sort* ss) {
 // Report the testing results.
 void report_test_result(do_sort::sort* ss, string sorting_method) {
   string test_result = (is_sorted(ss)) ? "\033[32mPASSED" : "\033[31mFAILED";
-  cout << sorting_method << " test --> " << "[" << test_result << "\033[39m]" << endl;;
+  cout << sorting_method
+       << " test --> "
+       << "["
+       << test_result
+       << "\033[39m]"
+       << endl;
 }
 
 int main() {
   string test_result = "";
 
-  cout << endl << endl << "-------------------- \033[34mTesting Results\033[39m --------------------" << endl;
+  cout << endl
+       << endl
+       << "-------------------- \033[34mTesting Results\033[39m --------------------"
+       << endl;
 
   // Unit test for the bubble sort.
   do_sort::bubble_sort *bs = new do_sort::bubble_sort();
@@ -38,13 +49,16 @@ int main() {
 
   bs->clear_data();
   bs->do_sort();
-  report_test_result(static_cast<do_sort::sort*>(bs), "Bubble sort [corner case #1]");
+  report_test_result(static_cast<do_sort::sort*>(bs),
+                     "Bubble sort [corner case #1]");
 
   bs->init(1);
   bs->do_sort();
-  report_test_result(static_cast<do_sort::sort*>(bs), "Bubble sort [corner case #2]");
+  report_test_result(static_cast<do_sort::sort*>(bs),
+                     "Bubble sort [corner case #2]");
 
-  cout << "\033[36m---------------------------------------------------------\033[39m" << endl;
+  cout << "\033[36m---------------------------------------------------------\033[39m"
+       << endl;
 
 #if DUMP_DATA
   bs->dump("Bubble Sort");
@@ -59,13 +73,16 @@ int main() {
 
   ss->clear_data();
   ss->do_sort();
-  report_test_result(static_cast<do_sort::sort*>(ss), "Selection sort [corner case #1]");
+  report_test_result(static_cast<do_sort::sort*>(ss),
+                     "Selection sort [corner case #1]");
 
   ss->init(1);
   ss->do_sort();
-  report_test_result(static_cast<do_sort::sort*>(ss), "Selection sort [corner case #2]");
+  report_test_result(static_cast<do_sort::sort*>(ss),
+                     "Selection sort [corner case #2]");
 
-  cout << "\033[36m---------------------------------------------------------\033[39m" << endl;
+  cout << "\033[36m---------------------------------------------------------\033[39m"
+       << endl;
 
 #if DUMP_DATA
   ss->dump("Selection Sort");
@@ -80,13 +97,16 @@ int main() {
 
   is->clear_data();
   is->do_sort();
-  report_test_result(static_cast<do_sort::sort*>(is), "Insertion sort [corner case #1]");
+  report_test_result(static_cast<do_sort::sort*>(is),
+                     "Insertion sort [corner case #1]");
 
   is->init(1);
   is->do_sort();
-  report_test_result(static_cast<do_sort::sort*>(is), "Insertion sort [corner case #2]");
+  report_test_result(static_cast<do_sort::sort*>(is),
+                     "Insertion sort [corner case #2]");
 
-  cout << "\033[36m---------------------------------------------------------\033[39m" << endl;
+  cout << "\033[36m---------------------------------------------------------\033[39m"
+       << endl;
 
 #if DUMP_DATA
   is->dump("Insertion Sort");
@@ -101,13 +121,16 @@ int main() {
 
   ms->clear_data();
   ms->do_sort();
-  report_test_result(static_cast<do_sort::sort*>(ms), "Merge sort [corner case #1]");
+  report_test_result(static_cast<do_sort::sort*>(ms),
+                     "Merge sort [corner case #1]");
 
   ms->init(1);
   ms->do_sort();
-  report_test_result(static_cast<do_sort::sort*>(ms), "Merge sort [corner case #2]");
+  report_test_result(static_cast<do_sort::sort*>(ms),
+                     "Merge sort [corner case #2]");
 
-  cout << "\033[36m---------------------------------------------------------\033[39m" << endl;
+  cout << "\033[36m---------------------------------------------------------\033[39m"
+       << endl;
 
 #if DUMP_DATA
   ms->dump("Merge Sort");
@@ -122,13 +145,16 @@ int main() {
 
   qs->clear_data();
   qs->do_sort();
-  report_test_result(static_cast<do_sort::sort*>(qs), "Quick sort [corner case #1]");
+  report_test_result(static_cast<do_sort::sort*>(qs),
+                     "Quick sort [corner case #1]");
 
   qs->init(1);
   qs->do_sort();
-  report_test_result(static_cast<do_sort::sort*>(qs), "Quick sort [corner case #2]");
+  report_test_result(static_cast<do_sort::sort*>(qs),
+                     "Quick sort [corner case #2]");
 
-  cout << "\033[36m---------------------------------------------------------\033[39m" << endl;
+  cout << "\033[36m---------------------------------------------------------\033[39m"
+       << endl;
 
 #if DUMP_DATA
   qs->dump("Quick Sort");
@@ -143,18 +169,22 @@ int main() {
 
   sts->clear_data();
   sts->do_sort();
-  report_test_result(static_cast<do_sort::sort*>(sts), "Strand sort [corner case #1]");
+  report_test_result(static_cast<do_sort::sort*>(sts),
+                     "Strand sort [corner case #1]");
 
   sts->init(1);
   sts->do_sort();
-  report_test_result(static_cast<do_sort::sort*>(sts), "Strand sort [corner case #2]");
+  report_test_result(static_cast<do_sort::sort*>(sts),
+                     "Strand sort [corner case #2]");
 
 #if DUMP_DATA
   sts->dump("Strand Sort");
 #endif
   delete sts;
 
-  cout << "---------------------------------------------------------" << endl << endl;
+  cout << "---------------------------------------------------------"
+       << endl
+       << endl;
 
   return 0;
 }
