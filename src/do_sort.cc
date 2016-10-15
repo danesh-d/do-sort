@@ -76,9 +76,13 @@ void do_sort::sort::merge(vector<int>& v,
   memcpy(&v[high - num + 1], &aux[high - num + 1], num * sizeof(int));
 }
 
+void do_sort::sort::do_sort() {
+  specific_do_sort();
+}
+
 // --- Bubble sort implementation.
 
-void do_sort::bubble_sort::do_sort() {
+void do_sort::bubble_sort::specific_do_sort() {
   int n = v.size();
   int j = 0;
   bool swapped = true;
@@ -98,7 +102,7 @@ void do_sort::bubble_sort::do_sort() {
 // --- Selection sort implementation.
 
 // Perform the selection sort.
-void do_sort::selection_sort::do_sort() {
+void do_sort::selection_sort::specific_do_sort() {
   for (int i = 0; i < v.size(); ++i) {
     int min_val = v[i];
     int ind = i;
@@ -119,7 +123,7 @@ void do_sort::selection_sort::do_sort() {
 // --- Insertion sort implementation.
 
 // Perform the insertion sort.
-void do_sort::insertion_sort::do_sort() {
+void do_sort::insertion_sort::specific_do_sort() {
   for (int i = 1; i < v.size(); ++i) {
     int elem = v[i];
     int j = i;
@@ -134,25 +138,32 @@ void do_sort::insertion_sort::do_sort() {
 
 // --- Merge sort implementation.
 
-void do_sort::merge_sort::msort(vector<int>& v,
-                                vector<int>& aux,
-                                int low,
-                                int high) {
+void do_sort::merge_sort::recursive_msort(vector<int>& v,
+                                          vector<int>& aux,
+                                          int low,
+                                          int high) {
   if (low < high) {
     int mid = (low + high) >> 1;
 
-    msort(v, aux, low, mid);
-    msort(v, aux, mid + 1, high);
+    // The original list is partitioned at the middle and each part will be
+    // sorted separately while each sub-list will be divided and sorted
+    // recursively until the list consists of two elements and then they wil be
+    // merged.
+    recursive_msort(v, aux, low, mid);
+    recursive_msort(v, aux, mid + 1, high);
+
+    // Both lists partitioned at the middle have been sorted and now will be
+    // merged while the order will be preserved.
     merge(v, aux, low, mid + 1, high);
   }
 }
 
 // Perform the merge sort.
-void do_sort::merge_sort::do_sort() {
+void do_sort::merge_sort::specific_do_sort() {
   aux.resize(v.size());
 
   if (v.size() > 1) {
-    msort(v, aux, 0, v.size() - 1);
+    recursive_msort(v, aux, 0, v.size() - 1);
   }
 
   aux.clear();
@@ -192,14 +203,14 @@ void do_sort::quick_sort::qsort_partition(vector<int>& v, int left, int right) {
 }
 
 // Perform the quick sort.
-void do_sort::quick_sort::do_sort() {
+void do_sort::quick_sort::specific_do_sort() {
   qsort_partition(v, 0, v.size() - 1);
 }
 
 // --- Strand sort implementation.
 
 // Perform the strand sort.
-void do_sort::strand_sort::do_sort() {
+void do_sort::strand_sort::specific_do_sort() {
   int n = v.size();
   int ptr = 0;
 

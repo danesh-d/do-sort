@@ -13,7 +13,9 @@ namespace do_sort {
     protected:
       vector<int> v;
 
-      virtual void do_sort() = 0;
+      // Each sorting algorithm will implement this funciton which will not be
+      // explicitely called but from "do_sort" public functionk.
+      virtual void specific_do_sort() = 0;
 
       // Swap the elements v[i] and v[j].
       void swap(vector<int>& v, int i, int j);
@@ -37,6 +39,7 @@ namespace do_sort {
       void clear_data();
       void dump(string title);
       void init(int s);
+      void do_sort();
 
       size_t size();
 
@@ -45,38 +48,41 @@ namespace do_sort {
 
   // --- Bubble sort.
   class bubble_sort : public sort {
+    protected:
+      void specific_do_sort();
+
     public:
       bubble_sort() {
       }
 
       ~bubble_sort() {
       }
-
-      void do_sort();
   };
 
   // --- Selection sort.
   class selection_sort : public sort {
+    protected:
+      void specific_do_sort();
+
     public:
       selection_sort() {
       }
 
       ~selection_sort() {
       }
-
-      void do_sort();
   };
 
   // --- Insertion sort.
   class insertion_sort : public sort {
+    protected:
+      void specific_do_sort();
+
     public:
       insertion_sort() {
       }
 
       ~insertion_sort() {
       }
-
-      void do_sort();
   };
 
   // --- Merge sort.
@@ -84,7 +90,10 @@ namespace do_sort {
     private:
       vector<int> aux;
 
-      void msort(vector<int>& v, vector<int>& aux, int low, int high);
+      void recursive_msort(vector<int>& v, vector<int>& aux, int low, int high);
+
+    protected:
+      void specific_do_sort();
 
     public:
       merge_sort() {
@@ -93,8 +102,6 @@ namespace do_sort {
       ~merge_sort() {
         aux.clear();
       }
-
-      void do_sort();
   };
 
   // --- Quick sort implementation.
@@ -102,14 +109,15 @@ namespace do_sort {
     private:
       void qsort_partition(vector<int>& v, int left, int right);
 
+    protected:
+      void specific_do_sort();
+
     public:
       quick_sort() {
       }
 
       ~quick_sort() {
       }
-
-      void do_sort();
   };
 
   // --- Strand sort implementation.
@@ -122,6 +130,9 @@ namespace do_sort {
       vector<int> sorted_v;
       vector<int> aux;
 
+    protected:
+      void specific_do_sort();
+
     public:
       strand_sort() {
       }
@@ -132,8 +143,6 @@ namespace do_sort {
         sorted_v.clear();
         aux.clear();
       }
-
-      void do_sort();
   };
 
   // --- Shell sort implementation.
