@@ -1,5 +1,10 @@
 
-#include "../src/do_sort.h"
+#include "../src/bubble_sort.h"
+#include "../src/selection_sort.h"
+#include "../src/insertion_sort.h"
+#include "../src/strand_sort.h"
+#include "../src/quick_sort.h"
+#include "../src/merge_sort.h"
 
 #define DATA_SIZE 30000
 #define DUMP_DATA 0
