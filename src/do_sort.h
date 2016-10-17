@@ -48,6 +48,8 @@ namespace do_sort {
 
       size_t size();
 
+      bool empty();
+
       int operator[](int i);
   };
 

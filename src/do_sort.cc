@@ -8,6 +8,11 @@ size_t do_sort::sort::size() {
   return v.size();
 }
 
+// Return true if the sorted data is empty.
+bool do_sort::sort::empty() {
+  return v.empty();
+}
+
 // Fill the vector with the input data.
 void do_sort::sort::set_data(vector<int>& arr, int s) {
   v = arr;
