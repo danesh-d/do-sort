@@ -13,14 +13,22 @@
 using namespace std;
 
 // Check whether the list is correctly sorted.
-bool is_sorted(do_sort::sort* ss) {
-  if (ss->size() == 0) {
+bool is_sorted(do_sort::sort* ss, bool asc) {
+  if (ss->empty()) {
     return true;
   }
 
   for (int i = 0; i < ss->size() - 1; ++i) {
-    if ((*ss)[i] > (*ss)[i + 1]) {
-      return false;
+    if (asc) {
+      // Check if the list is sorted in ascending order.
+      if ((*ss)[i] > (*ss)[i + 1]) {
+        return false;
+      }
+    } else {
+      // Check if the list is sorted in descending order.
+      if ((*ss)[i] < (*ss)[i + 1]) {
+        return false;
+      }
     }
   }
 
@@ -31,7 +39,9 @@ bool is_sorted(do_sort::sort* ss) {
 void report_test_result(do_sort::sort* ss,
                         string sorting_method,
                         double elapsed_time) {
-  string test_result = (is_sorted(ss)) ? "\033[32mPASSED" : "\033[31mFAILED";
+  string test_result = (is_sorted(ss, true)) ?
+                        "\033[32mPASSED" :
+                        "\033[31mFAILED";
   if (elapsed_time > 0.0) {
     cout << sorting_method
          << " test --> "
@@ -105,6 +115,7 @@ int main() {
 
   // Unit test for the selection sort.
   do_sort::selection_sort *ss = new do_sort::selection_sort();
+
   ss->init(DATA_SIZE);
   elapsed_time = ss->do_sort(true);
   report_test_result(static_cast<do_sort::sort*>(ss),
@@ -145,6 +156,7 @@ int main() {
 
   // Unit test for the insertion sort.
   do_sort::insertion_sort *is = new do_sort::insertion_sort();
+
   is->init(DATA_SIZE);
   elapsed_time = is->do_sort(true);
   report_test_result(static_cast<do_sort::sort*>(is),
@@ -185,6 +197,7 @@ int main() {
 
   // Unit test for the merge sort.
   do_sort::merge_sort *ms = new do_sort::merge_sort();
+
   ms->init(DATA_SIZE);
   elapsed_time = ms->do_sort(true);
   report_test_result(static_cast<do_sort::sort*>(ms),
@@ -225,6 +238,7 @@ int main() {
 
   // Unit test for the quick sort.
   do_sort::quick_sort *qs = new do_sort::quick_sort();
+
   qs->init(DATA_SIZE);
   elapsed_time = qs->do_sort(true);
   report_test_result(static_cast<do_sort::sort*>(qs),
@@ -265,6 +279,7 @@ int main() {
 
   // Unit test for the strand sort.
   do_sort::strand_sort *sts = new do_sort::strand_sort();
+
   sts->init(DATA_SIZE);
   elapsed_time = sts->do_sort(true);
   report_test_result(static_cast<do_sort::sort*>(sts),
@@ -306,6 +321,7 @@ int main() {
 
   // Unit test for the strand sort.
   do_sort::cocktail_sort *cts = new do_sort::cocktail_sort();
+
   cts->init(DATA_SIZE);
   elapsed_time = cts->do_sort(true);
   report_test_result(static_cast<do_sort::sort*>(cts),
