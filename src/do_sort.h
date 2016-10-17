@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <list>
 #include <ctime>
 
 #include <string.h>
@@ -14,7 +15,8 @@ namespace do_sort {
   // Abstract class for sort.
   class sort {
     protected:
-      vector<int> v;
+      vector<int> v;    // A sequential array-based data structure.
+      list<int> l;      // A two way linked list data structure.
 
       // Each sorting algorithm will implement this funciton which will not be
       // explicitely called but from "do_sort" public functionk.

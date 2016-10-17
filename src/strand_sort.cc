@@ -5,55 +5,46 @@ using namespace std;
 
 // --- Strand sort implementation.
 
-// Perform the strand sort.
+// Perform the strand sort. This sorting algorithm utilizes a linked list
+// instead of a simple array (vector) because frequent add/remove operations are
+// needed to be done which can be done efficiently in a linked list with lower
+// cost.
 void do_sort::strand_sort::specific_do_sort() {
-  int n = v.size();
-  int ptr = 0;
-
-  if (n <= 1)
+  if (v.size() <= 1) {
     return;
+  }
 
-  aux.resize(v.size());
-  flags.resize(v.size(), true);
+  // Copy the vector which holds all input data to a linked list. The interface
+  // is kept as vector to maintain compatibility and consistency with all other
+  // sorting algorithms.
+  copy(v.begin(), v.end(), back_inserter(l));
+  v.clear();
 
-  // Go through all elements, until all elements have been processed.
-  while (n > 0) {
-    // Ignore all already processed elements in the list.
-    while (!flags[ptr]) {
-      ptr++;
-    }
+  // This list holds sorted sub-list in each iteration.
+  list<int> sorted_sublist;
 
-    int e = v[ptr];
-    int m = e;
-    flags[ptr++] = false;
-    --n;
-    sub_v.push_back(e);
+  while (!l.empty()) {
+    // Copy the head of the list into the sorted sub-list and then add all
+    // elements which are less or equal to the recently added element to the
+    // sub-list iteratively.
+    sorted_sublist.push_back(l.front());
+    l.pop_front();
 
-    // Generate a sorted list based on the first element.
-    for (int i = ptr; i < v.size(); ++i) {
-      if (flags[i] && v[i] >= m) {
-        m = v[i];
-        sub_v.push_back(m);
-        flags[i] = false;
-        --n;
+    for (list<int>::iterator it = l.begin(); it != l.end();) {
+      if (sorted_sublist.back() <= *it) {
+        sorted_sublist.push_back(*it);
+        it = l.erase(it);
+      } else {
+        ++it;
       }
     }
 
-    // Save the merging point where the current sorting list and the newly
-    // generated sorting list will be merged.
-    int mid = sorted_v.size();
-
-    // Add the new sorted list to the already sorted list.
-    for (int i = 0; i < sub_v.size(); ++i) {
-      sorted_v.push_back(sub_v[i]);
-    }
-
-    // Perform the merge so form the new sorted list.
-    merge(sorted_v, aux, 0, mid, sorted_v.size() - 1);
-
-    sub_v.clear();
+    // Merge the sorted sub-list with the final sorted list. The sub-list will
+    // be released after each merge automatically.
+    sorted_list.merge(sorted_sublist);
   }
 
-  v = sorted_v;
+  copy(sorted_list.begin(), sorted_list.end(), back_inserter(v));
+  sorted_list.clear();
 }
 
