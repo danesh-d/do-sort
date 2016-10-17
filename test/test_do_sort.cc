@@ -8,7 +8,6 @@
 #include "../src/cocktail_sort.h"
 
 #define DATA_SIZE 30000
-#define DUMP_DATA 0
 
 using namespace std;
 
@@ -61,6 +60,46 @@ void report_test_result(do_sort::sort* ss,
   }
 }
 
+void run_test(do_sort::sort *ptr, string method_name, bool dump) {
+  ptr->init(DATA_SIZE);
+  double elapsed_time = ptr->do_sort(true);
+  report_test_result(ptr,
+                     method_name + " [normal case #0]",
+                     elapsed_time);
+
+  ptr->clear_data();
+  ptr->do_sort(false);
+  report_test_result(ptr,
+                     method_name + " [corner case #1]",
+                     0.0);
+
+  ptr->init(1);
+  ptr->do_sort(false);
+  report_test_result(ptr,
+                     method_name + " [corner case #2]",
+                     0.0);
+
+  ptr->init(2);
+  ptr->do_sort(false);
+  report_test_result(ptr,
+                     method_name + " [corner case #3]",
+                     0.0);
+
+  ptr->init(3);
+  ptr->do_sort(false);
+  report_test_result(ptr,
+                     method_name + " [corner case #4]",
+                     0.0);
+
+  cout << "\033[36m---------------------------------------------------------\033[39m"
+       << endl;
+
+  if (dump) {
+    ptr->dump(method_name.c_str());
+  }
+}
+
+
 int main() {
   string test_result = "";
   double elapsed_time = 0.0;
@@ -74,291 +113,37 @@ int main() {
 
   // Unit test for the bubble sort.
   do_sort::bubble_sort *bs = new do_sort::bubble_sort();
-
-  bs->init(DATA_SIZE);
-  elapsed_time = bs->do_sort(true);
-  report_test_result(static_cast<do_sort::sort*>(bs),
-                     "Bubble sort [normal case #0]",
-                     elapsed_time);
-
-  bs->clear_data();
-  bs->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(bs),
-                     "Bubble sort [corner case #1]",
-                     0.0);
-
-  bs->init(1);
-  bs->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(bs),
-                     "Bubble sort [corner case #2]",
-                     0.0);
-
-  bs->init(2);
-  bs->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(bs),
-                     "Bubble sort [corner case #3]",
-                     0.0);
-
-  bs->init(3);
-  bs->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(bs),
-                     "Bubble sort [corner case #4]",
-                     0.0);
-
-  cout << "\033[36m---------------------------------------------------------\033[39m"
-       << endl;
-
-#if DUMP_DATA
-  bs->dump("Bubble Sort");
-#endif
+  run_test(static_cast<do_sort::sort*>(bs), "Bubble Sort", false);
   delete bs;
 
   // Unit test for the selection sort.
   do_sort::selection_sort *ss = new do_sort::selection_sort();
-
-  ss->init(DATA_SIZE);
-  elapsed_time = ss->do_sort(true);
-  report_test_result(static_cast<do_sort::sort*>(ss),
-                     "Selection sort [normal case #0]",
-                     elapsed_time);
-
-  ss->clear_data();
-  ss->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(ss),
-                     "Selection sort [corner case #1]",
-                     0.0);
-
-  ss->init(1);
-  ss->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(ss),
-                     "Selection sort [corner case #2]",
-                     0.0);
-
-  ss->init(2);
-  ss->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(ss),
-                     "Selection sort [corner case #3]",
-                     0.0);
-
-  ss->init(3);
-  ss->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(ss),
-                     "Selection sort [corner case #4]",
-                     0.0);
-
-  cout << "\033[36m---------------------------------------------------------\033[39m"
-       << endl;
-
-#if DUMP_DATA
-  ss->dump("Selection Sort");
-#endif
+  run_test(static_cast<do_sort::sort*>(ss), "Selection Sort", false);
   delete ss;
 
   // Unit test for the insertion sort.
   do_sort::insertion_sort *is = new do_sort::insertion_sort();
-
-  is->init(DATA_SIZE);
-  elapsed_time = is->do_sort(true);
-  report_test_result(static_cast<do_sort::sort*>(is),
-                     "Insertion sort [normal case #0]",
-                     elapsed_time);
-
-  is->clear_data();
-  is->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(is),
-                     "Insertion sort [corner case #1]",
-                     0.0);
-
-  is->init(1);
-  is->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(is),
-                     "Insertion sort [corner case #2]",
-                     0.0);
-
-  is->init(2);
-  is->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(is),
-                     "Insertion sort [corner case #3]",
-                     0.0);
-
-  is->init(3);
-  is->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(is),
-                     "Insertion sort [corner case #4]",
-                     0.0);
-
-  cout << "\033[36m---------------------------------------------------------\033[39m"
-       << endl;
-
-#if DUMP_DATA
-  is->dump("Insertion Sort");
-#endif
+  run_test(static_cast<do_sort::sort*>(is), "Insertion Sort", false);
   delete is;
 
   // Unit test for the merge sort.
   do_sort::merge_sort *ms = new do_sort::merge_sort();
-
-  ms->init(DATA_SIZE);
-  elapsed_time = ms->do_sort(true);
-  report_test_result(static_cast<do_sort::sort*>(ms),
-                     "Merge sort [normal case #0]",
-                     elapsed_time);
-
-  ms->clear_data();
-  ms->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(ms),
-                     "Merge sort [corner case #1]",
-                     0.0);
-
-  ms->init(1);
-  ms->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(ms),
-                     "Merge sort [corner case #2]",
-                     0.0);
-
-  ms->init(2);
-  ms->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(ms),
-                     "Merge sort [corner case #3]",
-                     0.0);
-
-  ms->init(3);
-  ms->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(ms),
-                     "Merge sort [corner case #4]",
-                     0.0);
-
-  cout << "\033[36m---------------------------------------------------------\033[39m"
-       << endl;
-
-#if DUMP_DATA
-  ms->dump("Merge Sort");
-#endif
+  run_test(static_cast<do_sort::sort*>(ms), "Merge Sort", false);
   delete ms;
 
   // Unit test for the quick sort.
   do_sort::quick_sort *qs = new do_sort::quick_sort();
-
-  qs->init(DATA_SIZE);
-  elapsed_time = qs->do_sort(true);
-  report_test_result(static_cast<do_sort::sort*>(qs),
-                     "Quick sort [normal case #0]",
-                     elapsed_time);
-
-  qs->clear_data();
-  qs->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(qs),
-                     "Quick sort [corner case #1]",
-                     0.0);
-
-  qs->init(1);
-  qs->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(qs),
-                     "Quick sort [corner case #2]",
-                     0.0);
-
-  qs->init(2);
-  qs->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(qs),
-                     "Quick sort [corner case #3]",
-                     0.0);
-
-  qs->init(3);
-  qs->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(qs),
-                     "Quick sort [corner case #4]",
-                     0.0);
-
-  cout << "\033[36m---------------------------------------------------------\033[39m"
-       << endl;
-
-#if DUMP_DATA
-  qs->dump("Quick Sort");
-#endif
+  run_test(static_cast<do_sort::sort*>(qs), "Quick Sort", false);
   delete qs;
 
   // Unit test for the strand sort.
   do_sort::strand_sort *sts = new do_sort::strand_sort();
-
-  sts->init(DATA_SIZE);
-  elapsed_time = sts->do_sort(true);
-  report_test_result(static_cast<do_sort::sort*>(sts),
-                     "Strand sort [normal case #0]",
-                     elapsed_time);
-
-  sts->clear_data();
-  sts->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(sts),
-                     "Strand sort [corner case #1]",
-                     0.0);
-
-  sts->init(1);
-  sts->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(sts),
-                     "Strand sort [corner case #2]",
-                     0.0);
-
-  sts->init(2);
-  sts->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(sts),
-                     "Strand sort [corner case #3]",
-                     0.0);
-
-  sts->init(3);
-  sts->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(sts),
-                     "Strand sort [corner case #4]",
-                     0.0);
-
-  cout << "---------------------------------------------------------"
-       << endl
-       << endl;
-
-#if DUMP_DATA
-  sts->dump("Strand Sort");
-#endif
+  run_test(static_cast<do_sort::sort*>(sts), "Strand Sort", false);
   delete sts;
 
   // Unit test for the strand sort.
   do_sort::cocktail_sort *cts = new do_sort::cocktail_sort();
-
-  cts->init(DATA_SIZE);
-  elapsed_time = cts->do_sort(true);
-  report_test_result(static_cast<do_sort::sort*>(cts),
-                     "Cocktail sort [normal case #0]",
-                     elapsed_time);
-
-  cts->clear_data();
-  cts->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(cts),
-                     "Cocktail sort [corner case #1]",
-                     0.0);
-
-  cts->init(1);
-  cts->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(cts),
-                     "Cocktail sort [corner case #2]",
-                     0.0);
-
-  cts->init(2);
-  cts->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(cts),
-                     "Cocktail sort [corner case #3]",
-                     0.0);
-
-  cts->init(3);
-  cts->do_sort(false);
-  report_test_result(static_cast<do_sort::sort*>(cts),
-                     "Cocktail sort [corner case #4]",
-                     0.0);
-
-  cout << "---------------------------------------------------------"
-       << endl
-       << endl;
-
-#if DUMP_DATA
-  cts->dump("Cocktail Sort");
-#endif
+  run_test(static_cast<do_sort::sort*>(cts), "Cocktail Sort", false);
   delete cts;
 
   return 0;
