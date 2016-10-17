@@ -9,7 +9,7 @@ using namespace std;
 // each traverse from left to right, then next traverse will start from right to
 // left and so on.
 void do_sort::cocktail_sort::specific_do_sort() {
-  int n = v.size();
+  int n = size();
   int upper_bound = n - 1;
   int lower_bound = 0;
   bool swapped = true;

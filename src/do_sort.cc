@@ -25,7 +25,7 @@ void do_sort::sort::clear_data() {
 // Dump values in a vector.
 void do_sort::sort::dump(string title) {
   cout << "---------- " << title << " ----------" << endl;
-  for (int i = 0; i < v.size(); ++i) {
+  for (int i = 0; i < size(); ++i) {
     cout << "v[" << i << "]: " << v[i] << endl;
   }
 }

@@ -7,7 +7,9 @@ using namespace std;
 
 // Perform the insertion sort.
 void do_sort::insertion_sort::specific_do_sort() {
-  for (int i = 1; i < v.size(); ++i) {
+  int n = size();
+
+  for (int i = 1; i < n; ++i) {
     int elem = v[i];
     int j = i;
 

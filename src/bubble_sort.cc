@@ -6,7 +6,7 @@ using namespace std;
 // --- Bubble sort implementation.
 
 void do_sort::bubble_sort::specific_do_sort() {
-  int n = v.size();
+  int n = size();
   int upper_bound = n - 1;
   bool swapped = true;
 

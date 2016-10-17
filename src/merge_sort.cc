@@ -27,12 +27,12 @@ void do_sort::merge_sort::recursive_msort(vector<int>& v,
 
 // Perform the merge sort.
 void do_sort::merge_sort::specific_do_sort() {
-  aux.resize(v.size());
+  int n = size();
 
-  if (v.size() > 1) {
-    recursive_msort(v, aux, 0, v.size() - 1);
+  if (n > 1) {
+    aux.resize(n);
+    recursive_msort(v, aux, 0, n - 1);
+    aux.clear();
   }
-
-  aux.clear();
 }
 

@@ -38,6 +38,6 @@ void do_sort::quick_sort::qsort_partition(vector<int>& v, int left, int right) {
 
 // Perform the quick sort.
 void do_sort::quick_sort::specific_do_sort() {
-  qsort_partition(v, 0, v.size() - 1);
+  qsort_partition(v, 0, size() - 1);
 }
 

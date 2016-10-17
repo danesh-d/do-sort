@@ -10,7 +10,7 @@ using namespace std;
 // needed to be done which can be done efficiently in a linked list with lower
 // cost.
 void do_sort::strand_sort::specific_do_sort() {
-  if (v.size() <= 1) {
+  if (size() <= 1) {
     return;
   }
 
