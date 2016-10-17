@@ -6,6 +6,7 @@
 #include "../src/quick_sort.h"
 #include "../src/merge_sort.h"
 #include "../src/cocktail_sort.h"
+#include "../src/gnome_sort.h"
 
 #define DATA_SIZE 30000
 
@@ -141,10 +142,15 @@ int main() {
   run_test(static_cast<do_sort::sort*>(sts), "Strand Sort", false);
   delete sts;
 
-  // Unit test for the strand sort.
+  // Unit test for the cocktail sort.
   do_sort::cocktail_sort *cts = new do_sort::cocktail_sort();
   run_test(static_cast<do_sort::sort*>(cts), "Cocktail Sort", false);
   delete cts;
+
+  // Unit test for the gnome sort.
+  do_sort::gnome_sort *gs = new do_sort::gnome_sort();
+  run_test(static_cast<do_sort::sort*>(gs), "Gnome Sort", false);
+  delete gs;
 
   return 0;
 }
