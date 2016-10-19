@@ -14,7 +14,7 @@ bool do_sort::sort::empty() {
 }
 
 // Fill the vector with the input data.
-void do_sort::sort::set_data(vector<int>& arr, int s) {
+void do_sort::sort::set_data(vector<int>& arr) {
   v = arr;
 }
 

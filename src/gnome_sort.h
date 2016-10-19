@@ -11,7 +11,7 @@ namespace do_sort {
   // --- Gnome sort.
   class gnome_sort : public sort {
     private:
-      void gnome_sort_bounded(int upper_bound);
+      void gnome_sort_bounded(size_t upper_bound);
 
     protected:
       void specific_do_sort();

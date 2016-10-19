@@ -6,17 +6,21 @@ using namespace std;
 // --- Bubble sort implementation.
 
 void do_sort::bubble_sort::specific_do_sort() {
-  int upper_bound = size() - 1;
-  int lower_bound = 0;
+  size_t upper_bound = size();
+  size_t lower_bound = 0;
   bool swapped = true;
+
+  if (upper_bound <= 1) {
+    return;
+  }
 
   while (swapped) {
     swapped = false;
 
-    int tmp_upper = 0;
-    int tmp_lower = 0;
+    size_t tmp_upper = 0;
+    size_t tmp_lower = 0;
 
-    for (int i = lower_bound; i < upper_bound; ++i) {
+    for (int i = lower_bound; i < upper_bound - 1; ++i) {
       if (v[i] > v[i + 1]) {
         swap(v, i, i + 1);
         swapped = true;
@@ -28,7 +32,7 @@ void do_sort::bubble_sort::specific_do_sort() {
         // Save the place of last swap. The process in the next round will
         // continue up to this point since the rest of the list will be remain
         // sorted if no swap has happened.
-        tmp_upper = i;
+        tmp_upper = i + 1;
       } else {
         // This might slow down a bit for an array with uniformly distributed
         // random numbers. But if the list is partially sorted at the begining

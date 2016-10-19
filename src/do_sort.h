@@ -40,7 +40,7 @@ namespace do_sort {
         v.clear();
       }
 
-      void set_data(vector<int>& arr, int s);
+      void set_data(vector<int>& arr);
       void clear_data();
       void dump(string title);
       void init(int s);
