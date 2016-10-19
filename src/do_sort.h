@@ -23,14 +23,14 @@ namespace do_sort {
       virtual void specific_do_sort() = 0;
 
       // Swap the elements v[i] and v[j].
-      void swap(vector<int>& v, int i, int j);
+      void swap(vector<int>& v, size_t i, size_t j);
 
       // Merge two sorted lists.
       void merge(vector<int>& v,
                  vector<int>& sorted_v,
-                 int low,
-                 int border,
-                 int high);
+                 size_t low,
+                 size_t border,
+                 size_t high);
 
     public:
       sort() {
@@ -50,7 +50,7 @@ namespace do_sort {
 
       bool empty();
 
-      int operator[](int i);
+      int operator[](size_t i);
   };
 
 

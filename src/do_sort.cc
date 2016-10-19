@@ -25,7 +25,7 @@ void do_sort::sort::clear_data() {
 // Dump values in a vector.
 void do_sort::sort::dump(string title) {
   cout << "---------- " << title << " ----------" << endl;
-  for (int i = 0; i < size(); ++i) {
+  for (unsigned long i = 0; i < size(); ++i) {
     cout << "v[" << i << "]: " << v[i] << endl;
   }
 }
@@ -34,17 +34,17 @@ void do_sort::sort::dump(string title) {
 void do_sort::sort::init(int s) {
   srand((unsigned)time(NULL));
 
-  for (int i = 0; i < s; ++i) {
+  for (unsigned long i = 0; i < s; ++i) {
     v.push_back(rand() % s + 1);
   }
 }
 
-int do_sort::sort::operator[](int i) {
+int do_sort::sort::operator[](size_t i) {
   return v[i];
 }
 
 // Swap two values in a vector by giving the indices.
-void do_sort::sort::swap(vector<int>& v, int i, int j) {
+void do_sort::sort::swap(vector<int>& v, size_t i, size_t j) {
   int tmp = v[i];
 
   v[i] = v[j];
@@ -54,12 +54,12 @@ void do_sort::sort::swap(vector<int>& v, int i, int j) {
 // Merge two sorted lists into one list.
 void do_sort::sort::merge(vector<int>& v,
                           vector<int>& aux,
-                          int low,
-                          int border,
-                          int high) {
-  int num = high - low + 1;
-  int ptr = low;
-  int low_end = border - 1;
+                          size_t low,
+                          size_t border,
+                          size_t high) {
+  size_t num = high - low + 1;
+  size_t ptr = low;
+  size_t low_end = border - 1;
 
   // Start mergin two lists until a list is finished before the other or if
   // both lists are finished at the same time, if they have same length.
