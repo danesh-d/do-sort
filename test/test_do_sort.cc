@@ -100,7 +100,6 @@ void run_test(do_sort::sort *ptr, string method_name, bool dump) {
   }
 }
 
-
 int main() {
   string test_result = "";
   double elapsed_time = 0.0;
