@@ -7,10 +7,10 @@ using namespace std;
 
 void do_sort::merge_sort::recursive_msort(vector<int>& v,
                                           vector<int>& aux,
-                                          size_t low,
-                                          size_t high) {
+                                          int low,
+                                          int high) {
   if (low < high) {
-    size_t mid = (low + high) >> 1;
+    int mid = (low + high) >> 1;
 
     // The original list is partitioned at the middle and each part will be
     // sorted separately while each sub-list will be divided and sorted
@@ -27,14 +27,12 @@ void do_sort::merge_sort::recursive_msort(vector<int>& v,
 
 // Perform the merge sort.
 void do_sort::merge_sort::specific_do_sort() {
-  size_t n = size();
+  int n = size();
 
-  if (n <= 1) {
-    return;
+  if (n > 1) {
+    aux.resize(n);
+    recursive_msort(v, aux, 0, n - 1);
+    aux.clear();
   }
-
-  aux.resize(n);
-  recursive_msort(v, aux, 0, n - 1);
-  aux.clear();
 }
 

@@ -9,7 +9,7 @@ namespace do_sort {
   // --- Quick sort implementation.
   class quick_sort : public sort {
     private:
-      void qsort_partition(vector<int>& v, size_t left, size_t right);
+      void qsort_partition(vector<int>& v, int left, int right);
 
     protected:
       void specific_do_sort();

@@ -11,10 +11,7 @@ namespace do_sort {
     private:
       vector<int> aux;
 
-      void recursive_msort(vector<int>& v,
-                           vector<int>& aux,
-                           size_t low,
-                           size_t high);
+      void recursive_msort(vector<int>& v, vector<int>& aux, int low, int high);
 
     protected:
       void specific_do_sort();

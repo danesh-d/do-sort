@@ -6,11 +6,9 @@ using namespace std;
 // --- Quick sort implementation.
 
 // Sort an array recursively by assigning a pivot and partitioning.
-void do_sort::quick_sort::qsort_partition(vector<int>& v,
-                                          size_t left,
-                                          size_t right) {
-  size_t l = left;
-  size_t r = right;
+void do_sort::quick_sort::qsort_partition(vector<int>& v, int left, int right) {
+  int l = left;
+  int r = right;
   int pivot = v[(l + r) >> 1];
 
  // Perform partioning according to the current pivot.
@@ -40,12 +38,6 @@ void do_sort::quick_sort::qsort_partition(vector<int>& v,
 
 // Perform the quick sort.
 void do_sort::quick_sort::specific_do_sort() {
-  size_t n = size();
-
-  if (n <= 1) {
-    return;
-  }
-
-  qsort_partition(v, 0, n - 1);
+  qsort_partition(v, 0, size() - 1);
 }
 
