@@ -4,8 +4,8 @@
 using namespace std;
 
 // Return the size of the sorted data.
-size_t do_sort::sort::size() {
-  return v.size();
+ULL do_sort::sort::size() {
+  return (ULL)v.size();
 }
 
 // Return true if the sorted data is empty.
@@ -44,7 +44,7 @@ int do_sort::sort::operator[](size_t i) {
 }
 
 // Swap two values in a vector by giving the indices.
-void do_sort::sort::swap(vector<int>& v, size_t i, size_t j) {
+void do_sort::sort::swap(vector<int>& v, ULL i, ULL j) {
   int tmp = v[i];
 
   v[i] = v[j];
@@ -54,12 +54,12 @@ void do_sort::sort::swap(vector<int>& v, size_t i, size_t j) {
 // Merge two sorted lists into one list.
 void do_sort::sort::merge(vector<int>& v,
                           vector<int>& aux,
-                          size_t low,
-                          size_t border,
-                          size_t high) {
-  size_t num = high - low + 1;
-  size_t ptr = low;
-  size_t low_end = border - 1;
+                          ULL low,
+                          ULL border,
+                          ULL high) {
+  ULL num = high - low + 1;
+  ULL ptr = low;
+  ULL low_end = border - 1;
 
   // Start mergin two lists until a list is finished before the other or if
   // both lists are finished at the same time, if they have same length.

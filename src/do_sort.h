@@ -9,6 +9,11 @@
 #include <string.h>
 #include <stdlib.h>
 
+typedef long L;
+typedef long long LL;
+typedef unsigned long UL;
+typedef unsigned long long ULL;
+
 using namespace std;
 
 namespace do_sort {
@@ -23,14 +28,14 @@ namespace do_sort {
       virtual void specific_do_sort() = 0;
 
       // Swap the elements v[i] and v[j].
-      void swap(vector<int>& v, size_t i, size_t j);
+      void swap(vector<int>& v, ULL i, ULL j);
 
       // Merge two sorted lists.
       void merge(vector<int>& v,
                  vector<int>& sorted_v,
-                 size_t low,
-                 size_t border,
-                 size_t high);
+                 ULL low,
+                 ULL border,
+                 ULL high);
 
     public:
       sort() {
@@ -46,7 +51,7 @@ namespace do_sort {
       void init(int s);
       double do_sort(bool elapsed_time);
 
-      size_t size();
+      ULL size();
 
       bool empty();
 
