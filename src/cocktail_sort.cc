@@ -9,15 +9,19 @@ using namespace std;
 // each traverse from left to right, then next traverse will start from right to
 // left and so on.
 void do_sort::cocktail_sort::specific_do_sort() {
-  int n = size();
-  int upper_bound = n - 1;
-  int lower_bound = 0;
+  if (size() <= 1) {
+    return;
+  }
+
+  ULL n = size();
+  ULL upper_bound = n - 1;
+  ULL lower_bound = 0;
   bool swapped = true;
 
   while (swapped) {
     swapped = false;
 
-    int tmp = 0;
+    ULL tmp = 0;
 
     for (int i = 0; i < upper_bound; ++i) {
       if (v[i] > v[i + 1]) {

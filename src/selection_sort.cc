@@ -7,12 +7,16 @@ using namespace std;
 
 // Perform the selection sort.
 void do_sort::selection_sort::specific_do_sort() {
-  int n = size();
+  if (size() <= 1) {
+    return;
+  }
+
+  ULL n = size();
 
   // Traverse the list until all elements are sorted.
   for (int i = 0; i < n; ++i) {
     int min_val = v[i];
-    int ind = i;
+    ULL ind = i;
 
     // From the current element to the end of the list, find the minimum value
     // and swap it with the current element.

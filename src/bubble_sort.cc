@@ -6,15 +6,19 @@ using namespace std;
 // --- Bubble sort implementation.
 
 void do_sort::bubble_sort::specific_do_sort() {
-  int upper_bound = size() - 1;
-  int lower_bound = 0;
+  if (size() <= 1) {
+    return;
+  }
+
+  ULL upper_bound = size() - 1;
+  ULL lower_bound = 0;
   bool swapped = true;
 
   while (swapped) {
     swapped = false;
 
-    int tmp_upper = 0;
-    int tmp_lower = 0;
+    ULL tmp_upper = 0;
+    ULL tmp_lower = 0;
 
     for (int i = lower_bound; i < upper_bound; ++i) {
       if (v[i] > v[i + 1]) {
