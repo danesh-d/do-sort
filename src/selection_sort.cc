@@ -11,12 +11,12 @@ void do_sort::selection_sort::specific_do_sort() {
     return;
   }
 
-  ULL n = size();
+  LL n = size();
 
   // Traverse the list until all elements are sorted.
   for (int i = 0; i < n; ++i) {
     int min_val = v[i];
-    ULL ind = i;
+    LL ind = i;
 
     // From the current element to the end of the list, find the minimum value
     // and swap it with the current element.

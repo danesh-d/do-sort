@@ -13,15 +13,15 @@ void do_sort::cocktail_sort::specific_do_sort() {
     return;
   }
 
-  ULL n = size();
-  ULL upper_bound = n - 1;
-  ULL lower_bound = 0;
+  LL n = size();
+  LL upper_bound = n - 1;
+  LL lower_bound = 0;
   bool swapped = true;
 
   while (swapped) {
     swapped = false;
 
-    ULL tmp = 0;
+    LL tmp = 0;
 
     for (int i = 0; i < upper_bound; ++i) {
       if (v[i] > v[i + 1]) {

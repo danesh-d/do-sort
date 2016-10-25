@@ -10,15 +10,15 @@ void do_sort::bubble_sort::specific_do_sort() {
     return;
   }
 
-  ULL upper_bound = size() - 1;
-  ULL lower_bound = 0;
+  LL upper_bound = size() - 1;
+  LL lower_bound = 0;
   bool swapped = true;
 
   while (swapped) {
     swapped = false;
 
-    ULL tmp_upper = 0;
-    ULL tmp_lower = 0;
+    LL tmp_upper = 0;
+    LL tmp_lower = 0;
 
     for (int i = lower_bound; i < upper_bound; ++i) {
       if (v[i] > v[i + 1]) {

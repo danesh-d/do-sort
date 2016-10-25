@@ -28,14 +28,14 @@ namespace do_sort {
       virtual void specific_do_sort() = 0;
 
       // Swap the elements v[i] and v[j].
-      void swap(vector<int>& v, ULL i, ULL j);
+      void swap(vector<int>& v, LL i, LL j);
 
       // Merge two sorted lists.
       void merge(vector<int>& v,
                  vector<int>& sorted_v,
-                 ULL low,
-                 ULL border,
-                 ULL high);
+                 LL low,
+                 LL border,
+                 LL high);
 
     public:
       sort() {
@@ -51,7 +51,7 @@ namespace do_sort {
       void init(int s);
       double do_sort(bool elapsed_time);
 
-      ULL size();
+      LL size();
 
       bool empty();
 
