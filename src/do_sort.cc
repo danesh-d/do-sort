@@ -81,10 +81,13 @@ void do_sort::sort::merge(vector<int>& v,
   memcpy(&v[high - num + 1], &aux[high - num + 1], num * sizeof(int));
 }
 
-double do_sort::sort::do_sort(bool elapsed_time, bool asc) {
+double do_sort::sort::do_sort(bool elapsed_time,
+                              bool asc,
+                              int (*cmpFunc)(const void*, const void*)) {
   double t = 0.0;
 
   this->asc = asc;
+  this->cmpFunc = cmpFunc;
 
   if (!elapsed_time) {
     // The elapsed time for the current sorting process is not needed to be
