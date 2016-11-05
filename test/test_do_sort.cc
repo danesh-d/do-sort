@@ -13,7 +13,8 @@
 using namespace std;
 
 // Check whether the list is correctly sorted.
-bool is_sorted(do_sort::sort* ss, bool asc) {
+template <typename T>
+bool is_sorted(do_sort::sort<T>* ss, bool asc) {
   if (ss->empty()) {
     return true;
   }
@@ -36,7 +37,8 @@ bool is_sorted(do_sort::sort* ss, bool asc) {
 }
 
 // Report the testing results.
-void report_test_result(do_sort::sort* ss,
+template <typename T>
+void report_test_result(do_sort::sort<T>* ss,
                         string sorting_method,
                         double elapsed_time) {
   string test_result = (is_sorted(ss, true)) ?
@@ -61,7 +63,8 @@ void report_test_result(do_sort::sort* ss,
   }
 }
 
-void run_test(do_sort::sort *ptr, string method_name, bool dump) {
+template <typename T>
+void run_test(do_sort::sort<T> *ptr, string method_name, bool dump) {
   ptr->init(DATA_SIZE);
   double elapsed_time = ptr->do_sort(true);
   report_test_result(ptr,
@@ -112,43 +115,43 @@ int main() {
        << endl;
 
   // Unit test for the bubble sort.
-  do_sort::bubble_sort *bs = new do_sort::bubble_sort();
-  run_test(static_cast<do_sort::sort*>(bs), "Bubble Sort", false);
+  do_sort::bubble_sort<int> *bs = new do_sort::bubble_sort<int>();
+  run_test(static_cast<do_sort::sort<int>*>(bs), "Bubble Sort", false);
   delete bs;
 
   // Unit test for the selection sort.
-  do_sort::selection_sort *ss = new do_sort::selection_sort();
-  run_test(static_cast<do_sort::sort*>(ss), "Selection Sort", false);
+  do_sort::selection_sort<int> *ss = new do_sort::selection_sort<int>();
+  run_test(static_cast<do_sort::sort<int>*>(ss), "Selection Sort", false);
   delete ss;
 
   // Unit test for the insertion sort.
-  do_sort::insertion_sort *is = new do_sort::insertion_sort();
-  run_test(static_cast<do_sort::sort*>(is), "Insertion Sort", false);
+  do_sort::insertion_sort<int> *is = new do_sort::insertion_sort<int>();
+  run_test(static_cast<do_sort::sort<int>*>(is), "Insertion Sort", false);
   delete is;
 
   // Unit test for the merge sort.
-  do_sort::merge_sort *ms = new do_sort::merge_sort();
-  run_test(static_cast<do_sort::sort*>(ms), "Merge Sort", false);
+  do_sort::merge_sort<int> *ms = new do_sort::merge_sort<int>();
+  run_test(static_cast<do_sort::sort<int>*>(ms), "Merge Sort", false);
   delete ms;
 
   // Unit test for the quick sort.
-  do_sort::quick_sort *qs = new do_sort::quick_sort();
-  run_test(static_cast<do_sort::sort*>(qs), "Quick Sort", false);
+  do_sort::quick_sort<int> *qs = new do_sort::quick_sort<int>();
+  run_test(static_cast<do_sort::sort<int>*>(qs), "Quick Sort", false);
   delete qs;
 
   // Unit test for the strand sort.
-  do_sort::strand_sort *sts = new do_sort::strand_sort();
-  run_test(static_cast<do_sort::sort*>(sts), "Strand Sort", false);
+  do_sort::strand_sort<int> *sts = new do_sort::strand_sort<int>();
+  run_test(static_cast<do_sort::sort<int>*>(sts), "Strand Sort", false);
   delete sts;
 
   // Unit test for the cocktail sort.
-  do_sort::cocktail_sort *cts = new do_sort::cocktail_sort();
-  run_test(static_cast<do_sort::sort*>(cts), "Cocktail Sort", false);
+  do_sort::cocktail_sort<int> *cts = new do_sort::cocktail_sort<int>();
+  run_test(static_cast<do_sort::sort<int>*>(cts), "Cocktail Sort", false);
   delete cts;
 
   // Unit test for the gnome sort.
-  do_sort::gnome_sort *gs = new do_sort::gnome_sort();
-  run_test(static_cast<do_sort::sort*>(gs), "Gnome Sort", false);
+  do_sort::gnome_sort<int> *gs = new do_sort::gnome_sort<int>();
+  run_test(static_cast<do_sort::sort<int>*>(gs), "Gnome Sort", false);
   delete gs;
 
   return 0;
