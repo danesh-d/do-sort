@@ -16,7 +16,7 @@ namespace do_sort {
         LL pos = upper_bound;
 
         while ((pos > 0) && (this->v[pos - 1] > this->v[pos])) {
-          this->swap(this->v, pos, pos - 1);
+          swap(this->v[pos], this->v[pos - 1]);
           --pos;
         }
       }

@@ -28,7 +28,7 @@ namespace do_sort {
 
           for (LL i = 0; i < upper_bound; ++i) {
             if (this->v[i] > this->v[i + 1]) {
-              this->swap(this->v, i, i + 1);
+              swap(this->v[i], this->v[i + 1]);
               swapped = true;
 
               // Save the place of last swap. The process in the next round will
@@ -40,7 +40,7 @@ namespace do_sort {
 
           // Shrink the range of the sorting since it is needed to continue the
           // // process up to the last non-sorted element in the list.
-          upper_bound = tmp;
+          upper_bound = tmp - 1;
 
           if (!swapped) {
             // No swap has been done, so no reverse check is needed and the loop
@@ -50,7 +50,7 @@ namespace do_sort {
 
           for (LL i = upper_bound; i >= 0; --i) {
             if (this->v[i] > this->v[i + 1]) {
-              this->swap(this->v, i, i + 1);
+              swap(this->v[i], this->v[i + 1]);
               swapped = true;
 
               // Save the place of last swap. The process in the next round will

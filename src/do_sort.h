@@ -30,14 +30,6 @@ namespace do_sort {
       // explicitely called but from "do_sort" public functionk.
       virtual void specific_do_sort() = 0;
 
-      // Swap the elements v[i] and v[j].
-      void swap(vector<T>& v, LL i, LL j) {
-        T tmp = v[i];
-
-        v[i] = v[j];
-        v[j] = tmp;
-      }
-
       // Merge two sorted lists.
       void merge(vector<T>& v,
                  vector<T>& aux,
@@ -66,7 +58,9 @@ namespace do_sort {
         }
 
         // Copy the sorted list to the original.
-        memcpy(&v[high - num + 1], &aux[high - num + 1], num * sizeof(int));
+        copy(aux.begin() + (high - num + 1),
+             aux.begin() + (high + 1),
+             v.begin() + (high - num + 1));
       }
 
     public:
@@ -89,17 +83,8 @@ namespace do_sort {
       // Dump values in a vector.
       void dump(string title) {
         cout << "---------- " << title << " ----------" << endl;
-        for (ULL i = 0; i < size(); ++i) {
+        for (LL i = 0; i < size(); ++i) {
           cout << "v[" << i << "]: " << v[i] << endl;
-        }
-      }
-
-      // Initialize a vector with the given size with some random data.
-      void init(ULL s) {
-        srand((unsigned)time(NULL));
-
-        for (ULL i = 0; i < s; ++i) {
-          v.push_back(rand() % s + 1);
         }
       }
 

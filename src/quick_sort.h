@@ -18,13 +18,13 @@ namespace do_sort {
           if (v[i] <= piv) {
             // Swap all elements smaller than pivot from left to right and then
             // swap the pivot itself when processing of all elements is done.
-            this->swap(v, ++ind, i);
+            swap(this->v[++ind], this->v[i]);
           }
         }
 
         // Adjust the place of the pivot and put it in the correct place in the
         // final sorted list.
-        this->swap(v, ++ind, right);
+        swap(this->v[++ind], this->v[right]);
 
         // Return the correct place of the pivot, so the sorting will continue
         // for the two halfs, partitioned by the pivot.

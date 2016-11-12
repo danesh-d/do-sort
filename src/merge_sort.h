@@ -10,7 +10,7 @@ namespace do_sort {
   template <class T>
   class merge_sort : public sort<T> {
     private:
-      vector<int> aux;
+      vector<T> aux;
 
       void recursive_msort(vector<T>& v, vector<T>& aux, LL low, LL high) {
         if (low < high) {

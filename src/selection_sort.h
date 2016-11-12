@@ -32,7 +32,7 @@ namespace do_sort {
           }
 
           if (ind != i) {
-            this->swap(this->v, i, ind);
+            swap(this->v[i], this->v[ind]);
           }
         }
       }

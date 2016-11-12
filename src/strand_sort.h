@@ -10,7 +10,7 @@ namespace do_sort {
   template <class T>
   class strand_sort : public sort<T> {
     private:
-      list<int> sorted_list;
+      list<T> sorted_list;
 
     protected:
       // Perform the strand sort. This sorting algorithm utilizes a linked list
@@ -29,7 +29,7 @@ namespace do_sort {
         this->v.clear();
 
         // This list holds sorted sub-list in each iteration.
-        list<int> sorted_sublist;
+        list<T> sorted_sublist;
 
         while (!this->l.empty()) {
           // Copy the head of the list into the sorted sub-list and then add all
@@ -38,7 +38,7 @@ namespace do_sort {
           sorted_sublist.push_back(this->l.front());
           this->l.pop_front();
 
-          for (list<int>::iterator it = this->l.begin(); it != this->l.end();) {
+          for (typename list<T>::iterator it = this->l.begin(); it != this->l.end();) {
             if (sorted_sublist.back() <= *it) {
               sorted_sublist.push_back(*it);
               it = this->l.erase(it);

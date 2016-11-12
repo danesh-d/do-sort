@@ -29,7 +29,7 @@ namespace do_sort {
 
           for (LL i = lower_bound; i < upper_bound; ++i) {
             if (this->v[i] > this->v[i + 1]) {
-              this->swap(this->v, i, i + 1);
+              swap(this->v[i], this->v[i + 1]);
               swapped = true;
 
               if (tmp_upper == 0) {
