@@ -75,6 +75,8 @@ class pers {
     }
 };
 
+bool failed;
+
 using namespace std;
 
 // Check whether the list is correctly sorted.
@@ -107,9 +109,15 @@ void report_test_result(do_sort::sort<T>* ss,
                         string sorting_method,
                         double elapsed_time,
                         bool asc) {
-  string test_result = (is_sorted(ss, asc)) ?
-                        "\033[32mPASSED" :
-                        "\033[31mFAILED";
+  string test_result;
+
+  if (is_sorted(ss, asc)) {
+    test_result = "\033[32mPASSED";
+  } else {
+    test_result = "\033[31mFAILED";
+    failed = true;
+  }
+
   if (elapsed_time > 0.0) {
     cout << sorting_method
          << " test --> "
@@ -472,6 +480,8 @@ void type_specific_test(string type,
 }
 
 int main() {
+  failed = false;
+
   cout << endl << endl;
 
   cout << "***** Performing tests in ascending order *****" << endl;
@@ -642,6 +652,13 @@ int main() {
       cout << pp;
       cout << "------------" << endl;
     }
+  }
+
+  cout << endl;
+  if (failed) {
+    cout << "At least one test has been failed." << endl;
+  } else {
+    cout << "All tests have been passed." << endl;
   }
 
   return 0;
