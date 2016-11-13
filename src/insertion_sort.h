@@ -17,16 +17,32 @@ namespace do_sort {
           return;
         }
 
-        for (LL i = 1; i < n; i++) {
-          T key = this->v[i];
-          LL j = i - 1;
+        if (this->asc) {
+          // Sort the data in ascending order.
+          for (LL i = 1; i < n; i++) {
+            T key = this->v[i];
+            LL j = i - 1;
 
-          while ((j >= 0) && (this->v[j] > key)) {
-            this->v[j + 1] = this->v[j];
-            --j;
+            while ((j >= 0) && (this->v[j] > key)) {
+              this->v[j + 1] = this->v[j];
+              --j;
+            }
+
+            this->v[j + 1] = key;
           }
+        } else {
+          // Sort the data in descending order.
+          for (LL i = 1; i < n; i++) {
+            T key = this->v[i];
+            LL j = i - 1;
 
-          this->v[j + 1] = key;
+            while ((j >= 0) && (this->v[j] < key)) {
+              this->v[j + 1] = this->v[j];
+              --j;
+            }
+
+            this->v[j + 1] = key;
+          }
         }
       }
 

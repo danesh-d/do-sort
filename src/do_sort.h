@@ -24,7 +24,6 @@ namespace do_sort {
       vector<T> v;      // A sequential array-based data structure.
       list<T> l;        // A two way linked list data structure.
       bool asc;         // Specify the order of sorting.
-      int (*cmpFunc)(const void*, const void*);
 
       // Each sorting algorithm will implement this funciton which will not be
       // explicitely called but from "do_sort" public functionk.
@@ -35,7 +34,8 @@ namespace do_sort {
                  vector<T>& aux,
                  LL low,
                  LL border,
-                 LL high) {
+                 LL high,
+                 bool asc) {
         LL num = high - low + 1;
         LL ptr = low;
         LL low_end = border - 1;
@@ -43,8 +43,16 @@ namespace do_sort {
         // Start mergin two lists until a list is finished before the other or
         // if both lists are finished at the same time, if they have same
         // length.
-        while (low <= low_end && border <= high) {
-          aux[ptr++] = (v[low] < v[border]) ? v[low++] : v[border++];
+        if (asc) {
+          // Merge two lists while maintaining the ascending order.
+          while (low <= low_end && border <= high) {
+            aux[ptr++] = (v[low] < v[border]) ? v[low++] : v[border++];
+          }
+        } else {
+          // Merge two lists while maintaining the descending order.
+          while (low <= low_end && border <= high) {
+            aux[ptr++] = (v[low] > v[border]) ? v[low++] : v[border++];
+          }
         }
 
         // Merge the ramaining.
@@ -89,12 +97,10 @@ namespace do_sort {
       }
 
       double do_sort(bool elapsed_time,
-                     bool asc = true,
-                     int (*cmpFunc)(const void*, const void*) = NULL) {
+                     bool asc = true) {
         double t = 0.0;
 
         this->asc = asc;
-        this->cmpFunc = cmpFunc;
 
         if (!elapsed_time) {
           // The elapsed time for the current sorting process is not needed to

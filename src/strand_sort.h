@@ -52,6 +52,13 @@ namespace do_sort {
           sorted_list.merge(sorted_sublist);
         }
 
+        if (!this->asc) {
+          // The sorted list should be in descending order so just revert the
+          // list. Since it is a linked list, so the complexity will be O(n)
+          // which is quite low.
+          sorted_list.reverse();
+        }
+
         copy(sorted_list.begin(), sorted_list.end(), back_inserter(this->v));
         sorted_list.clear();
       }

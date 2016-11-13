@@ -17,22 +17,43 @@ namespace do_sort {
           return;
         }
 
-        // Traverse the list until all elements are sorted.
-        for (LL i = 0; i < n; ++i) {
-          T min_val = this->v[i];
-          LL ind = i;
+        if (this->asc) {
+          // The data will be sorted in ascending order.
+          for (LL i = 0; i < n; ++i) {
+            T key = this->v[i];
+            LL ind = i;
 
-          // From the current element to the end of the list, find the minimum
-          // value and swap it with the current element.
-          for (LL j = i  + 1; j < n; ++j) {
-            if (this->v[j] < min_val) {
-              min_val = this->v[j];
-              ind = j;
+            // From the current element to the end of the list, find the minimum
+            // value and swap it with the current element.
+            for (LL j = i  + 1; j < n; ++j) {
+              if (this->v[j] < key) {
+                key = this->v[j];
+                ind = j;
+              }
+            }
+
+            if (ind != i) {
+              swap(this->v[i], this->v[ind]);
             }
           }
+        } else {
+          // The data will be sorted in descending order.
+          for (LL i = 0; i < n; ++i) {
+            T key = this->v[i];
+            LL ind = i;
 
-          if (ind != i) {
-            swap(this->v[i], this->v[ind]);
+            // From the current element to the end of the list, find the minimum
+            // value and swap it with the current element.
+            for (LL j = i  + 1; j < n; ++j) {
+              if (this->v[j] > key) {
+                key = this->v[j];
+                ind = j;
+              }
+            }
+
+            if (ind != i) {
+              swap(this->v[i], this->v[ind]);
+            }
           }
         }
       }

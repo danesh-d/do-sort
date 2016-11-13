@@ -9,6 +9,7 @@
 #include "../src/gnome_sort.h"
 
 #define DATA_SIZE 42000
+#define CUST_DATA_SIZE 10
 #define FLOAT_CONST 937.32266
 #define STRING_TEST_LEN 10
 
@@ -16,6 +17,63 @@ static const char alphanum[] = "0123456789"
                                "!@#$%^&*"
                                "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                                "abcdefghijklmnopqrstuvwxyz";
+
+class pers {
+  public:
+    int age;
+    int ID;
+    string first_name;
+    string last_name;
+
+    // Implement copy operator for the class.
+    pers& operator=(const pers& p) {
+      // check for self-assignment
+      if (&p == this) {
+        return *this;
+      }
+
+      age = p.age;
+      ID = p.ID;
+      first_name = p.first_name;
+      last_name = p.last_name;
+
+      return *this;
+    }
+
+    // Impolement comparison operators.
+    bool operator==(const pers& p) {
+      return (age == p.age);
+    }
+
+    bool operator!=(const pers& p) {
+      return (age != p.age);
+    }
+
+    bool operator<=(const pers& p) {
+      return (age <= p.age);
+    }
+
+    bool operator>=(const pers& p) {
+      return (age >= p.age);
+    }
+
+    bool operator<(const pers& p) {
+      return (age < p.age);
+    }
+
+    bool operator>(const pers& p) {
+      return (age > p.age);
+    }
+
+    // Implement operator to send data to output stream.
+    friend ostream& operator<<(ostream& os, pers& p) {
+      os << "Age: " << p.age << endl;
+      os << "ID: " << p.ID << endl;
+      os << "First name: " << p.first_name << endl;
+      os << "Last name: " << p.last_name << endl;
+      return os;
+    }
+};
 
 using namespace std;
 
@@ -47,8 +105,9 @@ bool is_sorted(do_sort::sort<T>* ss, bool asc) {
 template <typename T>
 void report_test_result(do_sort::sort<T>* ss,
                         string sorting_method,
-                        double elapsed_time) {
-  string test_result = (is_sorted(ss, true)) ?
+                        double elapsed_time,
+                        bool asc) {
+  string test_result = (is_sorted(ss, asc)) ?
                         "\033[32mPASSED" :
                         "\033[31mFAILED";
   if (elapsed_time > 0.0) {
@@ -224,33 +283,37 @@ void run_test(do_sort::sort<T> *ptr,
               vector<T>& v1,
               vector<T>& v2,
               vector<T>& v3,
-              vector<T>& v4) {
+              vector<T>& v4,
+              bool asc) {
 
   vector<T> v;
 
   // Random data is generated only for numeric types.
   ptr->set_data(v1);
-  double elapsed_time = ptr->do_sort(true);
+  double elapsed_time = ptr->do_sort(true, asc);
   report_test_result(ptr,
                      method_name + " [normal case #0]",
-                     elapsed_time);
+                     elapsed_time,
+                     asc);
 
   if (dump) {
     ptr->dump(method_name.c_str());
   }
 
   ptr->clear_data();
-  ptr->do_sort(false);
+  ptr->do_sort(false, asc);
   report_test_result(ptr,
                      method_name + " [corner case #1]",
-                     0.0);
+                     0.0,
+                     asc);
 
   ptr->clear_data();
   ptr->set_data(v2);
-  ptr->do_sort(false);
+  ptr->do_sort(false, asc);
   report_test_result(ptr,
                      method_name + " [corner case #2]",
-                     0.0);
+                     0.0,
+                     asc);
 
   if (dump) {
     ptr->dump(method_name.c_str());
@@ -258,10 +321,11 @@ void run_test(do_sort::sort<T> *ptr,
 
   ptr->clear_data();
   ptr->set_data(v3);
-  ptr->do_sort(false);
+  ptr->do_sort(false, asc);
   report_test_result(ptr,
                      method_name + " [corner case #3]",
-                     0.0);
+                     0.0,
+                     asc);
 
   if (dump) {
     ptr->dump(method_name.c_str());
@@ -269,10 +333,11 @@ void run_test(do_sort::sort<T> *ptr,
 
   ptr->clear_data();
   ptr->set_data(v4);
-  ptr->do_sort(false);
+  ptr->do_sort(false, asc);
   report_test_result(ptr,
                      method_name + " [corner case #4]",
-                     0.0);
+                     0.0,
+                     asc);
 
   if (dump) {
     ptr->dump(method_name.c_str());
@@ -287,7 +352,8 @@ void type_specific_test(string type,
                         vector<T>& v1,
                         vector<T>& v2,
                         vector<T>& v3,
-                        vector<T>& v4) {
+                        vector<T>& v4,
+                        bool asc = true) {
   string test_result = "";
   double elapsed_time = 0.0;
 
@@ -309,7 +375,8 @@ void type_specific_test(string type,
            v1,
            v2,
            v3,
-           v4);
+           v4,
+           asc);
   delete bs;
 
   // Unit test for the selection sort.
@@ -321,7 +388,8 @@ void type_specific_test(string type,
            v1,
            v2,
            v3,
-           v4);
+           v4,
+           asc);
   delete ss;
 
   // Unit test for the insertion sort.
@@ -333,7 +401,8 @@ void type_specific_test(string type,
            v1,
            v2,
            v3,
-           v4);
+           v4,
+           asc);
   delete is;
 
   // Unit test for the merge sort.
@@ -345,7 +414,8 @@ void type_specific_test(string type,
            v1,
            v2,
            v3,
-           v4);
+           v4,
+           asc);
   delete ms;
 
   // Unit test for the quick sort.
@@ -357,7 +427,8 @@ void type_specific_test(string type,
            v1,
            v2,
            v3,
-           v4);
+           v4,
+           asc);
   delete qs;
 
   // Unit test for the strand sort.
@@ -369,7 +440,8 @@ void type_specific_test(string type,
            v1,
            v2,
            v3,
-           v4);
+           v4,
+           asc);
   delete sts;
 
   // Unit test for the cocktail sort.
@@ -381,7 +453,8 @@ void type_specific_test(string type,
            v1,
            v2,
            v3,
-           v4);
+           v4,
+           asc);
   delete cts;
 
   // Unit test for the gnome sort.
@@ -393,30 +466,183 @@ void type_specific_test(string type,
            v1,
            v2,
            v3,
-           v4);
+           v4,
+           asc);
   delete gs;
 }
 
 int main() {
-  vector<int> vint1, vint2, vint3, vint4;
-  init_int(vint1, vint2, vint3, vint4, DATA_SIZE);
-  type_specific_test<int>("int", vint1, vint2, vint3, vint4);
+  cout << endl << endl;
 
-  vector<float> vfloat1, vfloat2, vfloat3, vfloat4;
-  init_float(vfloat1, vfloat2, vfloat3, vfloat4, DATA_SIZE);
-  type_specific_test<float>("float", vfloat1, vfloat2, vfloat3, vfloat4);
+  cout << "***** Performing tests in ascending order *****" << endl;
 
-  vector<double> vdouble1, vdouble2, vdouble3, vdouble4;
-  init_double(vdouble1, vdouble2, vdouble3, vdouble4, DATA_SIZE);
-  type_specific_test<double>("double", vdouble1, vdouble2, vdouble3, vdouble4);
+  {
+    vector<int> vint1, vint2, vint3, vint4;
+    init_int(vint1, vint2, vint3, vint4, DATA_SIZE);
+    type_specific_test<int>("int",
+                            vint1,
+                            vint2,
+                            vint3,
+                            vint4);
 
-  vector<char> vchar1, vchar2, vchar3, vchar4;
-  init_char(vchar1, vchar2, vchar3, vchar4, DATA_SIZE);
-  type_specific_test<char>("char", vchar1, vchar2, vchar3, vchar4);
+    vector<float> vfloat1, vfloat2, vfloat3, vfloat4;
+    init_float(vfloat1, vfloat2, vfloat3, vfloat4, DATA_SIZE);
+    type_specific_test<float>("float",
+                              vfloat1,
+                              vfloat2,
+                              vfloat3,
+                              vfloat4);
 
-  vector<string> vstr1, vstr2, vstr3, vstr4;
-  init_str(vstr1, vstr2, vstr3, vstr4, DATA_SIZE, STRING_TEST_LEN);
-  type_specific_test<string>("string", vstr1, vstr2, vstr3, vstr4);
+    vector<double> vdouble1, vdouble2, vdouble3, vdouble4;
+    init_double(vdouble1, vdouble2, vdouble3, vdouble4, DATA_SIZE);
+    type_specific_test<double>("double",
+                               vdouble1,
+                               vdouble2,
+                               vdouble3,
+                               vdouble4);
+
+    vector<char> vchar1, vchar2, vchar3, vchar4;
+    init_char(vchar1, vchar2, vchar3, vchar4, DATA_SIZE);
+    type_specific_test<char>("char",
+                             vchar1,
+                             vchar2,
+                             vchar3,
+                             vchar4);
+
+    vector<string> vstr1, vstr2, vstr3, vstr4;
+    init_str(vstr1, vstr2, vstr3, vstr4, DATA_SIZE, STRING_TEST_LEN);
+    type_specific_test<string>("string",
+                               vstr1,
+                               vstr2,
+                               vstr3,
+                               vstr4);
+  }
+
+  cout << endl << endl;
+
+  cout << "***** Performing tests in descending order *****" << endl;
+
+  {
+    vector<int> vint1, vint2, vint3, vint4;
+    init_int(vint1, vint2, vint3, vint4, DATA_SIZE);
+    type_specific_test<int>("int",
+                            vint1,
+                            vint2,
+                            vint3,
+                            vint4,
+                            false);
+
+    vector<float> vfloat1, vfloat2, vfloat3, vfloat4;
+    init_float(vfloat1, vfloat2, vfloat3, vfloat4, DATA_SIZE);
+    type_specific_test<float>("float",
+                              vfloat1,
+                              vfloat2,
+                              vfloat3,
+                              vfloat4,
+                              false);
+
+    vector<double> vdouble1, vdouble2, vdouble3, vdouble4;
+    init_double(vdouble1, vdouble2, vdouble3, vdouble4, DATA_SIZE);
+    type_specific_test<double>("double",
+                               vdouble1,
+                               vdouble2,
+                               vdouble3,
+                               vdouble4,
+                               false);
+
+    vector<char> vchar1, vchar2, vchar3, vchar4;
+    init_char(vchar1, vchar2, vchar3, vchar4, DATA_SIZE);
+    type_specific_test<char>("char",
+                             vchar1,
+                             vchar2,
+                             vchar3,
+                             vchar4,
+                             false);
+
+    vector<string> vstr1, vstr2, vstr3, vstr4;
+    init_str(vstr1, vstr2, vstr3, vstr4, DATA_SIZE, STRING_TEST_LEN);
+    type_specific_test<string>("string",
+                               vstr1,
+                               vstr2,
+                               vstr3,
+                               vstr4,
+                               false);
+  }
+
+  {
+    vector<pers> persons(CUST_DATA_SIZE);
+
+    persons[0].age = 38;
+    persons[0].ID = 6677;
+    persons[0].first_name = "Danesh";
+    persons[0].last_name = "Daroui";
+
+    persons[1].age = 22;
+    persons[1].ID = 4234;
+    persons[1].first_name = "Pontus";
+    persons[1].last_name = "Orega";
+
+    persons[2].age = 22;
+    persons[2].ID = 3324;
+    persons[2].first_name = "Rickard";
+    persons[2].last_name = "Johannesson";
+
+    persons[3].age = 65;
+    persons[3].ID = 2211;
+    persons[3].first_name = "Arif";
+    persons[3].last_name = "Yarsani";
+
+    persons[4].age = 54;
+    persons[4].ID = 2877;
+    persons[4].first_name = "Alex";
+    persons[4].last_name = "Smith";
+
+    persons[5].age = 17;
+    persons[5].ID = 9942;
+    persons[5].first_name = "Sarah";
+    persons[5].last_name = "Warx";
+
+    persons[6].age = 32;
+    persons[6].ID = 8766;
+    persons[6].first_name = "Monica";
+    persons[6].last_name = "Cortiz";
+
+    persons[7].age = 81;
+    persons[7].ID = 3099;
+    persons[7].first_name = "Simon";
+    persons[7].last_name = "Thomson";
+
+    persons[8].age = 42;
+    persons[8].ID = 7812;
+    persons[8].first_name = "Sofia";
+    persons[8].last_name = "Andreasson";
+
+    persons[9].age = 20;
+    persons[9].ID = 7790;
+    persons[9].first_name = "Anna";
+    persons[9].last_name = "Krantz";
+
+    cout << "----> Customized data before sorting:" << endl;
+    for (int i = 0; i < CUST_DATA_SIZE; ++i) {
+      pers pp = persons[i];
+      cout << pp;
+      cout << "------------" << endl;
+    }
+
+    cout << endl << endl;
+
+    do_sort::bubble_sort<pers> bs;
+    bs.set_data(persons);
+    double elapsed_time = bs.do_sort(true, true);
+
+    cout << "----> Customized data after sorting (bubble sort) based on the age:"
+         << endl;
+    for (int i = 0; i < CUST_DATA_SIZE; ++i) {
+      pers pp = bs[i];
+      cout << pp;
+      cout << "------------" << endl;
+    }
+  }
 
   return 0;
 }

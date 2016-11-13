@@ -12,7 +12,11 @@ namespace do_sort {
     private:
       vector<T> aux;
 
-      void recursive_msort(vector<T>& v, vector<T>& aux, LL low, LL high) {
+      void recursive_msort(vector<T>& v,
+                           vector<T>& aux,
+                           LL low,
+                           LL high,
+                           bool asc) {
         if (low < high) {
           LL mid = (low + high) >> 1;
 
@@ -20,12 +24,12 @@ namespace do_sort {
           // be sorted separately while each sub-list will be divided and sorted
           // recursively until the list consists of two elements and then they
           // wil be merged.
-          recursive_msort(v, aux, low, mid);
-          recursive_msort(v, aux, mid + 1, high);
+          recursive_msort(v, aux, low, mid, asc);
+          recursive_msort(v, aux, mid + 1, high, asc);
 
           // Both lists partitioned at the middle have been sorted and now will
           // be merged while the order will be preserved.
-          this->merge(v, aux, low, mid + 1, high);
+          this->merge(v, aux, low, mid + 1, high, asc);
         }
       }
 
@@ -38,7 +42,7 @@ namespace do_sort {
         }
 
         aux.resize(n);
-        recursive_msort(this->v, aux, 0, n - 1);
+        recursive_msort(this->v, aux, 0, n - 1, this->asc);
         aux.clear();
       }
 

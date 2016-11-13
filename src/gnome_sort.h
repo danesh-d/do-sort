@@ -12,12 +12,21 @@ namespace do_sort {
   template <class T>
   class gnome_sort : public sort<T> {
     private:
-      void gnome_sort_bounded(LL upper_bound) {
+      void gnome_sort_bounded(LL upper_bound, bool asc) {
         LL pos = upper_bound;
 
-        while ((pos > 0) && (this->v[pos - 1] > this->v[pos])) {
-          swap(this->v[pos], this->v[pos - 1]);
-          --pos;
+        if (asc) {
+          // Sort the data in ascending order.
+          while ((pos > 0) && (this->v[pos - 1] > this->v[pos])) {
+            swap(this->v[pos], this->v[pos - 1]);
+            --pos;
+          }
+        } else {
+          // Sort the data in descending order.
+          while ((pos > 0) && (this->v[pos - 1] < this->v[pos])) {
+            swap(this->v[pos], this->v[pos - 1]);
+            --pos;
+          }
         }
       }
 
@@ -30,7 +39,7 @@ namespace do_sort {
         }
 
         for (LL i = 1; i < n; ++i) {
-          gnome_sort_bounded(i);
+          gnome_sort_bounded(i, this->asc);
         }
       }
 
