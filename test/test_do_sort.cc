@@ -7,6 +7,7 @@
 #include "../src/merge_sort.h"
 #include "../src/cocktail_sort.h"
 #include "../src/gnome_sort.h"
+#include "../src/shell_sort.h"
 
 #define DATA_SIZE 42000
 #define CUST_DATA_SIZE 10
@@ -374,7 +375,7 @@ void type_specific_test(string type,
        <<"\033[39m --------------------"
        << endl;
 
-  // Unit test for the bubble sort.
+  // Unit test for the Bubble sort.
   do_sort::bubble_sort<T> *bs = new do_sort::bubble_sort<T>();
   run_test(static_cast<do_sort::sort<T>*>(bs),
            "Bubble Sort",
@@ -387,7 +388,20 @@ void type_specific_test(string type,
            asc);
   delete bs;
 
-  // Unit test for the selection sort.
+  // Unit test for the Shell sort.
+  do_sort::shell_sort<T> *shs = new do_sort::shell_sort<T>();
+  run_test(static_cast<do_sort::sort<T>*>(shs),
+           "Shell Sort",
+           false,
+           type,
+           v1,
+           v2,
+           v3,
+           v4,
+           asc);
+  delete shs;
+
+  // Unit test for the Selection sort.
   do_sort::selection_sort<T> *ss = new do_sort::selection_sort<T>();
   run_test(static_cast<do_sort::sort<T>*>(ss),
            "Selection Sort",
@@ -400,7 +414,7 @@ void type_specific_test(string type,
            asc);
   delete ss;
 
-  // Unit test for the insertion sort.
+  // Unit test for the Insertion sort.
   do_sort::insertion_sort<T> *is = new do_sort::insertion_sort<T>();
   run_test(static_cast<do_sort::sort<T>*>(is),
            "Insertion Sort",
@@ -413,7 +427,7 @@ void type_specific_test(string type,
            asc);
   delete is;
 
-  // Unit test for the merge sort.
+  // Unit test for the Merge sort.
   do_sort::merge_sort<T> *ms = new do_sort::merge_sort<T>();
   run_test(static_cast<do_sort::sort<T>*>(ms),
            "Merge Sort",
@@ -426,7 +440,7 @@ void type_specific_test(string type,
            asc);
   delete ms;
 
-  // Unit test for the quick sort.
+  // Unit test for the Quick sort.
   do_sort::quick_sort<T> *qs = new do_sort::quick_sort<T>();
   run_test(static_cast<do_sort::sort<T>*>(qs),
            "Quick Sort",
@@ -439,7 +453,7 @@ void type_specific_test(string type,
            asc);
   delete qs;
 
-  // Unit test for the strand sort.
+  // Unit test for the Strand sort.
   do_sort::strand_sort<T> *sts = new do_sort::strand_sort<T>();
   run_test(static_cast<do_sort::sort<T>*>(sts),
            "Strand Sort",
@@ -452,7 +466,7 @@ void type_specific_test(string type,
            asc);
   delete sts;
 
-  // Unit test for the cocktail sort.
+  // Unit test for the Cocktail sort.
   do_sort::cocktail_sort<T> *cts = new do_sort::cocktail_sort<T>();
   run_test(static_cast<do_sort::sort<T>*>(cts),
            "Cocktail Sort",
@@ -465,7 +479,7 @@ void type_specific_test(string type,
            asc);
   delete cts;
 
-  // Unit test for the gnome sort.
+  // Unit test for the Gnome sort.
   do_sort::gnome_sort<T> *gs = new do_sort::gnome_sort<T>();
   run_test(static_cast<do_sort::sort<T>*>(gs),
            "Gnome Sort",
