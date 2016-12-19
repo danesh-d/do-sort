@@ -11,6 +11,21 @@ namespace do_sort {
   // --- Shell sort implementation.
   template <class T>
   class shell_sort : public sort<T> {
+    private:
+      vector<LL> gaps;
+
+      // This function generates the sequence of gaps. The original
+      // implementation is baed on the origtinal sequence used in the Shell's
+      // algorithm. However, other sequence of gaps such as Knuth's can be used.
+      // In that case, the user needs to re-implement the gap generator.
+      void generate_gaps(LL n) {
+        LL gap = n;
+
+        while ((gap = gap >> 1) > 0) {
+          gaps.push_back(gap);
+        }
+      }
+
     protected:
       void specific_do_sort() {
         LL n = this->size();
@@ -19,10 +34,15 @@ namespace do_sort {
           return;
         }
 
+        // Generate sequence of gaps where the sorting (far elements first) will
+        // be based on this sequence.
+        generate_gaps(n);
+
         // Different gap sequences can be used. The gap sequence which is used
         // here is the original sequence which is [n / 2 ^ k].
         if (this->asc) {
-          for (LL gap = n / 2; gap > 0; gap /= 2) {
+          for (vector<LL>::iterator it = gaps.begin(); it != gaps.end(); ++it) {
+            LL gap = *it;
             for (LL i = gap; i < n; ++i) {
               for (LL j = i - gap;
                    j >= 0 && this->v[j] > this->v[j + gap];
@@ -32,7 +52,8 @@ namespace do_sort {
             }
           }
         } else {
-          for (LL gap = n / 2; gap > 0; gap /= 2) {
+          for (vector<LL>::iterator it = gaps.begin(); it != gaps.end(); ++it) {
+            LL gap = *it;
             for (LL i = gap; i < n; ++i) {
               for (LL j = i - gap;
                    j >= 0 && this->v[j] < this->v[j + gap];
@@ -46,9 +67,11 @@ namespace do_sort {
 
     public:
       shell_sort() {
+        gaps.clear();
       }
 
       ~shell_sort() {
+        gaps.clear();
       }
   };
 }
