@@ -1,5 +1,6 @@
 
 #include <iostream>
+#include <map>
 
 #include "../src/bubble_sort.h"
 #include "../src/selection_sort.h"
@@ -85,12 +86,19 @@ using namespace std;
 
 // Check whether the list is correctly sorted.
 template <typename T>
-bool is_sorted(do_sort::sort<T>* ss, bool asc) {
+bool is_sorted(do_sort::sort<T>* ss, bool asc, const map<T, int>& m) {
   if (ss->empty()) {
     return true;
   }
 
+  map<T, int> local_m;
+
+  local_m.clear();
+
   for (int i = 0; i < ss->size() - 1; ++i) {
+    // Update the local hash table for further integrity comparison.
+    ++local_m[(*ss)[i]];
+
     if (asc) {
       // Check if the list is sorted in ascending order.
       if ((*ss)[i] > (*ss)[i + 1]) {
@@ -104,18 +112,34 @@ bool is_sorted(do_sort::sort<T>* ss, bool asc) {
     }
   }
 
-  return true;
+  // Add last element in the sorted list to the hash table.
+  ++local_m[(*ss)[ss->size() - 1]];
+
+  // The list is sorted so far, but make sure that two hash tables are exactly
+  // equal before concluding the correction of the result list.
+  return ((m.size() == local_m.size()) &&
+          (equal(m.begin(), m.end(), local_m.begin())));
+}
+
+// Fill the hash table with the initial data which will be used to ensure the
+// data integrity when data is sorted.
+template <typename T>
+void fillMap(vector<T>& v, map<T, int>& m) {
+  for (LL i = 0; i < v.size(); ++i) {
+    ++m[v[i]];
+  }
 }
 
 // Report the testing results.
 template <typename T>
 void report_test_result(do_sort::sort<T>* ss,
+                        const map<T, int>& m,
                         string sorting_method,
                         LD elapsed_time,
                         bool asc) {
   string test_result;
 
-  if (is_sorted(ss, asc)) {
+  if (is_sorted(ss, asc, m)) {
     test_result = "\033[32mPASSED";
   } else {
     test_result = "\033[31mFAILED";
@@ -300,10 +324,22 @@ void run_test(do_sort::sort<T> *ptr,
 
   vector<T> v;
 
+  map<T, int> m1;
+  map<T, int> m2;
+  map<T, int> m3;
+  map<T, int> m4;
+
+  m1.clear();
+  m2.clear();
+  m3.clear();
+  m4.clear();
+
   // Random data is generated only for numeric types.
   ptr->set_data(v1);
+  fillMap(v1, m1);
   LD elapsed_time = ptr->do_sort(true, asc);
   report_test_result(ptr,
+                     m1,
                      method_name + " [normal case #0]",
                      elapsed_time,
                      asc);
@@ -315,14 +351,17 @@ void run_test(do_sort::sort<T> *ptr,
   ptr->clear_data();
   ptr->do_sort(false, asc);
   report_test_result(ptr,
+                     m1,    // This is not used because the vector is empty.
                      method_name + " [corner case #1]",
                      0.0,
                      asc);
 
   ptr->clear_data();
   ptr->set_data(v2);
+  fillMap(v2, m2);
   ptr->do_sort(false, asc);
   report_test_result(ptr,
+                     m2,
                      method_name + " [corner case #2]",
                      0.0,
                      asc);
@@ -333,8 +372,10 @@ void run_test(do_sort::sort<T> *ptr,
 
   ptr->clear_data();
   ptr->set_data(v3);
+  fillMap(v3, m3);
   ptr->do_sort(false, asc);
   report_test_result(ptr,
+                     m3,
                      method_name + " [corner case #3]",
                      0.0,
                      asc);
@@ -345,8 +386,10 @@ void run_test(do_sort::sort<T> *ptr,
 
   ptr->clear_data();
   ptr->set_data(v4);
+  fillMap(v4, m4);
   ptr->do_sort(false, asc);
   report_test_result(ptr,
+                     m4,
                      method_name + " [corner case #4]",
                      0.0,
                      asc);
