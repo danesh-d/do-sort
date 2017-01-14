@@ -1,7 +1,6 @@
 #ifndef DO_SORT_H
 #define DO_SORT_H
 
-#include <iostream>
 #include <vector>
 #include <list>
 #include <ctime>

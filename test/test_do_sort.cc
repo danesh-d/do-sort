@@ -1,4 +1,6 @@
 
+#include <iostream>
+
 #include "../src/bubble_sort.h"
 #include "../src/selection_sort.h"
 #include "../src/insertion_sort.h"
