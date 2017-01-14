@@ -29,20 +29,20 @@ namespace do_sort {
 
           // Both lists partitioned at the middle have been sorted and now will
           // be merged while the order will be preserved.
-          this->merge(v, aux, low, mid + 1, high, asc);
+          sort<T>::merge(v, aux, low, mid + 1, high, asc);
         }
       }
 
     protected:
       void specific_do_sort() {
-        LL n = this->size();
+        LL n = sort<T>::size();
 
         if (n <= 1) {
           return;
         }
 
         aux.resize(n);
-        recursive_msort(this->v, aux, 0, n - 1, this->asc);
+        recursive_msort(sort<T>::v, aux, 0, n - 1, sort<T>::asc);
         aux.clear();
       }
 
@@ -50,7 +50,7 @@ namespace do_sort {
       merge_sort() {
       }
 
-      ~merge_sort() {
+      virtual ~merge_sort() {
         aux.clear();
       }
   };

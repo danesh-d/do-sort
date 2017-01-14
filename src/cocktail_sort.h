@@ -11,7 +11,7 @@ namespace do_sort {
   class cocktail_sort : public sort<T> {
     protected:
       void specific_do_sort() {
-        LL n = this->size();
+        LL n = sort<T>::size();
 
         if (n <= 1) {
           return;
@@ -21,7 +21,7 @@ namespace do_sort {
         LL lower_bound = 0;
         bool swapped = true;
 
-        if (this->asc) {
+        if (sort<T>::asc) {
           // Sort the data in ascending order.
           while (swapped) {
             swapped = false;
@@ -29,8 +29,8 @@ namespace do_sort {
             LL tmp = 0;
 
             for (LL i = 0; i < upper_bound; ++i) {
-              if (this->v[i] > this->v[i + 1]) {
-                swap(this->v[i], this->v[i + 1]);
+              if (sort<T>::v[i] > sort<T>::v[i + 1]) {
+                swap(sort<T>::v[i], sort<T>::v[i + 1]);
                 swapped = true;
 
                 // Save the place of last swap. The process in the next round
@@ -51,8 +51,8 @@ namespace do_sort {
             }
 
             for (LL i = upper_bound; i >= 0; --i) {
-              if (this->v[i] > this->v[i + 1]) {
-                swap(this->v[i], this->v[i + 1]);
+              if (sort<T>::v[i] > sort<T>::v[i + 1]) {
+                swap(sort<T>::v[i], sort<T>::v[i + 1]);
                 swapped = true;
 
                 // Save the place of last swap. The process in the next round
@@ -72,8 +72,8 @@ namespace do_sort {
             LL tmp = 0;
 
             for (LL i = 0; i < upper_bound; ++i) {
-              if (this->v[i] < this->v[i + 1]) {
-                swap(this->v[i], this->v[i + 1]);
+              if (sort<T>::v[i] < sort<T>::v[i + 1]) {
+                swap(sort<T>::v[i], sort<T>::v[i + 1]);
                 swapped = true;
 
                 // Save the place of last swap. The process in the next round
@@ -94,8 +94,8 @@ namespace do_sort {
             }
 
             for (LL i = upper_bound; i >= 0; --i) {
-              if (this->v[i] < this->v[i + 1]) {
-                swap(this->v[i], this->v[i + 1]);
+              if (sort<T>::v[i] < sort<T>::v[i + 1]) {
+                swap(sort<T>::v[i], sort<T>::v[i + 1]);
                 swapped = true;
 
                 // Save the place of last swap. The process in the next round
@@ -114,7 +114,7 @@ namespace do_sort {
       cocktail_sort() {
       }
 
-      ~cocktail_sort() {
+      virtual ~cocktail_sort() {
       }
   };
 }

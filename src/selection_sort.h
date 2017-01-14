@@ -11,48 +11,48 @@ namespace do_sort {
   class selection_sort : public sort<T> {
     protected:
       void specific_do_sort() {
-        LL n = this->size();
+        LL n = sort<T>::size();
 
         if (n <= 1) {
           return;
         }
 
-        if (this->asc) {
+        if (sort<T>::asc) {
           // The data will be sorted in ascending order.
           for (LL i = 0; i < n; ++i) {
-            T key = this->v[i];
+            T key = sort<T>::v[i];
             LL ind = i;
 
             // From the current element to the end of the list, find the minimum
             // value and swap it with the current element.
             for (LL j = i  + 1; j < n; ++j) {
-              if (this->v[j] < key) {
-                key = this->v[j];
+              if (sort<T>::v[j] < key) {
+                key = sort<T>::v[j];
                 ind = j;
               }
             }
 
             if (ind != i) {
-              swap(this->v[i], this->v[ind]);
+              swap(sort<T>::v[i], sort<T>::v[ind]);
             }
           }
         } else {
           // The data will be sorted in descending order.
           for (LL i = 0; i < n; ++i) {
-            T key = this->v[i];
+            T key = sort<T>::v[i];
             LL ind = i;
 
             // From the current element to the end of the list, find the minimum
             // value and swap it with the current element.
             for (LL j = i  + 1; j < n; ++j) {
-              if (this->v[j] > key) {
-                key = this->v[j];
+              if (sort<T>::v[j] > key) {
+                key = sort<T>::v[j];
                 ind = j;
               }
             }
 
             if (ind != i) {
-              swap(this->v[i], this->v[ind]);
+              swap(sort<T>::v[i], sort<T>::v[ind]);
             }
           }
         }
@@ -62,7 +62,7 @@ namespace do_sort {
       selection_sort() {
       }
 
-      ~selection_sort() {
+      virtual ~selection_sort() {
       }
   };
 }

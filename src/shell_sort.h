@@ -28,7 +28,7 @@ namespace do_sort {
 
     protected:
       void specific_do_sort() {
-        LL n = this->size();
+        LL n = sort<T>::size();
 
         if (n <= 1) {
           return;
@@ -40,14 +40,14 @@ namespace do_sort {
 
         // Different gap sequences can be used. The gap sequence which is used
         // here is the original sequence which is [n / 2 ^ k].
-        if (this->asc) {
+        if (sort<T>::asc) {
           for (vector<LL>::iterator it = gaps.begin(); it != gaps.end(); ++it) {
             LL gap = *it;
             for (LL i = gap; i < n; ++i) {
               for (LL j = i - gap;
-                   j >= 0 && this->v[j] > this->v[j + gap];
+                   j >= 0 && sort<T>::v[j] > sort<T>::v[j + gap];
                    j -= gap) {
-                swap(this->v[j + gap], this->v[j]);
+                swap(sort<T>::v[j + gap], sort<T>::v[j]);
               }
             }
           }
@@ -56,9 +56,9 @@ namespace do_sort {
             LL gap = *it;
             for (LL i = gap; i < n; ++i) {
               for (LL j = i - gap;
-                   j >= 0 && this->v[j] < this->v[j + gap];
+                   j >= 0 && sort<T>::v[j] < sort<T>::v[j + gap];
                    j -= gap) {
-                swap(this->v[j + gap], this->v[j]);
+                swap(sort<T>::v[j + gap], sort<T>::v[j]);
               }
             }
           }
@@ -70,7 +70,7 @@ namespace do_sort {
         gaps.clear();
       }
 
-      ~shell_sort() {
+      virtual ~shell_sort() {
         gaps.clear();
       }
   };

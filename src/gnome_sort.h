@@ -17,14 +17,14 @@ namespace do_sort {
 
         if (asc) {
           // Sort the data in ascending order.
-          while ((pos > 0) && (this->v[pos - 1] > this->v[pos])) {
-            swap(this->v[pos], this->v[pos - 1]);
+          while ((pos > 0) && (sort<T>::v[pos - 1] > sort<T>::v[pos])) {
+            swap(sort<T>::v[pos], sort<T>::v[pos - 1]);
             --pos;
           }
         } else {
           // Sort the data in descending order.
-          while ((pos > 0) && (this->v[pos - 1] < this->v[pos])) {
-            swap(this->v[pos], this->v[pos - 1]);
+          while ((pos > 0) && (sort<T>::v[pos - 1] < sort<T>::v[pos])) {
+            swap(sort<T>::v[pos], sort<T>::v[pos - 1]);
             --pos;
           }
         }
@@ -32,14 +32,14 @@ namespace do_sort {
 
     protected:
       void specific_do_sort() {
-        LL n = this->size();
+        LL n = sort<T>::size();
 
         if (n <= 1) {
           return;
         }
 
         for (LL i = 1; i < n; ++i) {
-          gnome_sort_bounded(i, this->asc);
+          gnome_sort_bounded(i, sort<T>::asc);
         }
       }
 
@@ -47,7 +47,7 @@ namespace do_sort {
       gnome_sort() {
       }
 
-      ~gnome_sort() {
+      virtual ~gnome_sort() {
       }
   };
 }

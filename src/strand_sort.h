@@ -18,30 +18,31 @@ namespace do_sort {
       // operations are needed to be done which can be done efficiently in a
       // linked list with lower cost.
       void specific_do_sort() {
-        if (this->size() <= 1) {
+        if (sort<T>::size() <= 1) {
           return;
         }
 
         // Copy the vector which holds all input data to a linked list. The
         // interface is kept as vector to maintain compatibility and consistency
         // with all other sorting algorithms.
-        copy(this->v.begin(), this->v.end(), back_inserter(this->l));
-        this->v.clear();
+        copy(sort<T>::v.begin(), sort<T>::v.end(), back_inserter(sort<T>::l));
+        sort<T>::v.clear();
 
         // This list holds sorted sub-list in each iteration.
         list<T> sorted_sublist;
 
-        while (!this->l.empty()) {
+        while (!sort<T>::l.empty()) {
           // Copy the head of the list into the sorted sub-list and then add all
           // elements which are less or equal to the recently added element to
           // the sub-list iteratively.
-          sorted_sublist.push_back(this->l.front());
-          this->l.pop_front();
+          sorted_sublist.push_back(sort<T>::l.front());
+          sort<T>::l.pop_front();
 
-          for (typename list<T>::iterator it = this->l.begin(); it != this->l.end();) {
+          for (typename list<T>::iterator it = sort<T>::l.begin();
+               it != sort<T>::l.end();) {
             if (sorted_sublist.back() <= *it) {
               sorted_sublist.push_back(*it);
-              it = this->l.erase(it);
+              it = sort<T>::l.erase(it);
             } else {
               ++it;
             }
@@ -52,14 +53,16 @@ namespace do_sort {
           sorted_list.merge(sorted_sublist);
         }
 
-        if (!this->asc) {
+        if (!sort<T>::asc) {
           // The sorted list should be in descending order so just revert the
           // list. Since it is a linked list, so the complexity will be O(n)
           // which is quite low.
           sorted_list.reverse();
         }
 
-        copy(sorted_list.begin(), sorted_list.end(), back_inserter(this->v));
+        copy(sorted_list.begin(),
+             sorted_list.end(),
+             back_inserter(sort<T>::v));
         sorted_list.clear();
       }
 
@@ -67,7 +70,7 @@ namespace do_sort {
       strand_sort() {
       }
 
-      ~strand_sort() {
+      virtual ~strand_sort() {
       }
   };
 }

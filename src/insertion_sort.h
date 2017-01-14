@@ -11,37 +11,37 @@ namespace do_sort {
   class insertion_sort : public sort<T> {
     protected:
       void specific_do_sort() {
-        LL n = this->size();
+        LL n = sort<T>::size();
 
         if (n <= 1) {
           return;
         }
 
-        if (this->asc) {
+        if (sort<T>::asc) {
           // Sort the data in ascending order.
           for (LL i = 1; i < n; i++) {
-            T key = this->v[i];
+            T key = sort<T>::v[i];
             LL j = i - 1;
 
-            while ((j >= 0) && (this->v[j] > key)) {
-              this->v[j + 1] = this->v[j];
+            while ((j >= 0) && (sort<T>::v[j] > key)) {
+              sort<T>::v[j + 1] = sort<T>::v[j];
               --j;
             }
 
-            this->v[j + 1] = key;
+            sort<T>::v[j + 1] = key;
           }
         } else {
           // Sort the data in descending order.
           for (LL i = 1; i < n; i++) {
-            T key = this->v[i];
+            T key = sort<T>::v[i];
             LL j = i - 1;
 
-            while ((j >= 0) && (this->v[j] < key)) {
-              this->v[j + 1] = this->v[j];
+            while ((j >= 0) && (sort<T>::v[j] < key)) {
+              sort<T>::v[j + 1] = sort<T>::v[j];
               --j;
             }
 
-            this->v[j + 1] = key;
+            sort<T>::v[j + 1] = key;
           }
         }
       }
@@ -50,7 +50,7 @@ namespace do_sort {
       insertion_sort() {
       }
 
-      ~insertion_sort() {
+      virtual ~insertion_sort() {
       }
   };
 }

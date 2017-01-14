@@ -11,7 +11,7 @@ namespace do_sort {
   class bubble_sort : public sort<T> {
     protected:
       void specific_do_sort() {
-        LL n = this->size();
+        LL n = sort<T>::size();
 
         if (n <= 1) {
           return;
@@ -21,7 +21,7 @@ namespace do_sort {
         LL lower_bound = 0;
         bool swapped = true;
 
-        if (this->asc) {
+        if (sort<T>::asc) {
           // The data will be sorted in ascending order.
           while (swapped) {
             swapped = false;
@@ -30,8 +30,8 @@ namespace do_sort {
             LL tmp_lower = 0;
 
             for (LL i = lower_bound; i < upper_bound; ++i) {
-              if (this->v[i] > this->v[i + 1]) {
-                swap(this->v[i], this->v[i + 1]);
+              if (sort<T>::v[i] > sort<T>::v[i + 1]) {
+                swap(sort<T>::v[i], sort<T>::v[i + 1]);
                 swapped = true;
 
                 if (tmp_upper == 0) {
@@ -69,8 +69,8 @@ namespace do_sort {
             LL tmp_lower = 0;
 
             for (LL i = lower_bound; i < upper_bound; ++i) {
-              if (this->v[i] < this->v[i + 1]) {
-                swap(this->v[i], this->v[i + 1]);
+              if (sort<T>::v[i] < sort<T>::v[i + 1]) {
+                swap(sort<T>::v[i], sort<T>::v[i + 1]);
                 swapped = true;
 
                 if (tmp_upper == 0) {
@@ -106,7 +106,7 @@ namespace do_sort {
       bubble_sort() {
       }
 
-      ~bubble_sort() {
+      virtual ~bubble_sort() {
       }
   };
 }

@@ -20,7 +20,7 @@ namespace do_sort {
               // Swap all elements smaller than pivot from left to right and
               // then swap the pivot itself when processing of all elements is
               // done.
-              swap(this->v[++ind], this->v[i]);
+              swap(sort<T>::v[++ind], sort<T>::v[i]);
             }
           }
         } else {
@@ -29,14 +29,14 @@ namespace do_sort {
               // Swap all elements smaller than pivot from left to right and
               // then swap the pivot itself when processing of all elements is
               // done.
-              swap(this->v[++ind], this->v[i]);
+              swap(sort<T>::v[++ind], sort<T>::v[i]);
             }
           }
         }
 
         // Adjust the place of the pivot and put it in the correct place in the
         // final sorted list.
-        swap(this->v[++ind], this->v[right]);
+        swap(sort<T>::v[++ind], sort<T>::v[right]);
 
         // Return the correct place of the pivot, so the sorting will continue
         // for the two halfs, partitioned by the pivot.
@@ -46,7 +46,7 @@ namespace do_sort {
       void qs_partition(vector<T>& v, LL left, LL right) {
         if (left < right) {
           // Partition the array based on the two given bounds.
-          LL piv_ind = partition(v, left, right, this->asc);
+          LL piv_ind = partition(v, left, right, sort<T>::asc);
 
           // Sort two separated partitions based on the pivot.
           qs_partition(v, left, piv_ind - 1);
@@ -56,18 +56,18 @@ namespace do_sort {
 
     protected:
       void specific_do_sort() {
-        if (this->size() <= 1) {
+        if (sort<T>::size() <= 1) {
           return;
         }
 
-        qs_partition(this->v, 0, this->size() - 1);
+        qs_partition(sort<T>::v, 0, sort<T>::size() - 1);
       }
 
     public:
       quick_sort() {
       }
 
-      ~quick_sort() {
+      virtual ~quick_sort() {
       }
   };
 }

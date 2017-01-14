@@ -8,6 +8,7 @@
 #include "../src/cocktail_sort.h"
 #include "../src/gnome_sort.h"
 #include "../src/shell_sort.h"
+#include "../src/tree_sort.h"
 
 #define DATA_SIZE 42000
 #define CUST_DATA_SIZE 10
@@ -108,7 +109,7 @@ bool is_sorted(do_sort::sort<T>* ss, bool asc) {
 template <typename T>
 void report_test_result(do_sort::sort<T>* ss,
                         string sorting_method,
-                        double elapsed_time,
+                        LD elapsed_time,
                         bool asc) {
   string test_result;
 
@@ -299,7 +300,7 @@ void run_test(do_sort::sort<T> *ptr,
 
   // Random data is generated only for numeric types.
   ptr->set_data(v1);
-  double elapsed_time = ptr->do_sort(true, asc);
+  LD elapsed_time = ptr->do_sort(true, asc);
   report_test_result(ptr,
                      method_name + " [normal case #0]",
                      elapsed_time,
@@ -364,7 +365,6 @@ void type_specific_test(string type,
                         vector<T>& v4,
                         bool asc = true) {
   string test_result = "";
-  double elapsed_time = 0.0;
 
   cout << endl
        << endl
@@ -491,6 +491,19 @@ void type_specific_test(string type,
            v4,
            asc);
   delete gs;
+
+  // Unit test for the Tree sort.
+  do_sort::tree_sort<T> *ts = new do_sort::tree_sort<T>();
+  run_test(static_cast<do_sort::sort<T>*>(ts),
+           "Tree Sort",
+           false,
+           type,
+           v1,
+           v2,
+           v3,
+           v4,
+           asc);
+  delete ts;
 }
 
 int main() {
@@ -657,7 +670,7 @@ int main() {
 
     do_sort::bubble_sort<pers> bs;
     bs.set_data(persons);
-    double elapsed_time = bs.do_sort(true, true);
+    LD elapsed_time = bs.do_sort(true, true);
 
     cout << "----> Customized data after sorting (bubble sort) based on the age:"
          << endl;

@@ -13,6 +13,7 @@ typedef long L;
 typedef long long LL;
 typedef unsigned long UL;
 typedef unsigned long long ULL;
+typedef long double LD;
 
 using namespace std;
 
@@ -81,6 +82,10 @@ namespace do_sort {
 
       // Fill the vector with the input data.
       void set_data(vector<T>& arr) {
+        // Note that while the vector's data i.e. header, metadata and control
+        // parameters are stored on the stack (which is not a big part of the
+        // whole data), the elements themselves will be stored on the heap which
+        // will be managed internally by the C++ container.
         v = arr;
       }
 
@@ -96,9 +101,9 @@ namespace do_sort {
         }
       }
 
-      double do_sort(bool elapsed_time,
+      LD do_sort(bool elapsed_time,
                      bool asc = true) {
-        double t = 0.0;
+        LD t = 0.0;
 
         this->asc = asc;
 
@@ -111,7 +116,7 @@ namespace do_sort {
           specific_do_sort();
           clock_t end = clock();
 
-          t = double(end - begin) / CLOCKS_PER_SEC;
+          t = (LD)(end - begin) / CLOCKS_PER_SEC;
         }
 
         return t;
