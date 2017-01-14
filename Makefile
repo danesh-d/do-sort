@@ -12,9 +12,9 @@ TEST_TARGET = test_do_sort
 
 .PHONY: do_sort test clean
 
-test: #$(OBJ)
+test:
 	mkdir -p $(LDIR)
-	$(CXX) $(TDIR)/test_do_sort.cc -o $(TDIR)/test_do_sort
+	$(CXX) $(CXXFLAGS) $(TDIR)/test_do_sort.cc -o $(TDIR)/test_do_sort
 	$(TDIR)/$(TEST_TARGET)
 	rm ./$(TDIR)/$(TEST_TARGET)
 
