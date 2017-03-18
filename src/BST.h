@@ -83,6 +83,8 @@ namespace do_sort {
           // Node release the node and make to point to NULL.
           delete node;
 
+          --num_nodes;
+
           node->left = NULL;
           node->right = NULL;
           node = NULL;
@@ -96,7 +98,10 @@ namespace do_sort {
                     : 0;
       }
 
-      // Return number of nodes in the tree.
+      // Return number of nodes in the tree. Note that the result of this
+      // function will be equal to "num_nodes" variable only if the function is
+      // called from root. Otherwise, the function will retuen number of the
+      // nodes from the given node.
       LL tree_num_nodes(struct btree *node) {
         return node ? tree_num_nodes(node->left) +
                       tree_num_nodes(node->right) + 1
