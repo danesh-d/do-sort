@@ -10,15 +10,23 @@ namespace do_sort {
   template <class T>
   class BST {
     private:
+      ULL num_nodes;
+      vector<T> intern_vec;
+
+      // The structure uses only pointers to the original data in the tree.
+      // Therefore, the data will be dumped when it is needed into an internal
+      // vectore before it is returned. This is mostly done for the sake of
+      // efficiency first to avoid copying data and also to support non-POD data
+      // types like strings.
       struct btree {
-        T key;
+        T *key;
         struct btree *left, *right;
       };
 
       struct btree *root;
 
       // Add a new hanging node.
-      struct btree* newNode(T key) {
+      struct btree* newNode(T *key) {
         struct btree *temp = new btree;
         temp->key = key;
         temp->left = temp->right = NULL;
@@ -26,14 +34,20 @@ namespace do_sort {
         return temp;
       }
 
-      struct btree* tree_insert(struct btree *node, T key) {
+      struct btree* tree_insert(struct btree *node, T *key) {
         // If the tree is empty, return a new node.
         if (node == NULL) {
+          // The first node is always root.
+          if (num_nodes == 1) {
+            root = newNode(key);
+            return root;
+          }
+
           return newNode(key);
         }
 
         // Otherwise, recur down the tree.
-        if (key <= node->key) {
+        if (*key <= *(node->key)) {
           node->left = tree_insert(node->left, key);
         } else if (key > node->key) {
           node->right = tree_insert(node->right, key);
@@ -41,20 +55,20 @@ namespace do_sort {
       }
 
       // Traverse the BST and return all sorted nodes in the ascending order.
-      void tree_inorder_ascending(struct btree *node, vector<T>& arr) {
+      void tree_inorder_ascending(struct btree *node) {
         if (node != NULL) {
-          tree_inorder_ascending(node->left, arr);
-          arr.push_back(node->key);
-          tree_inorder_ascending(node->right, arr);
+          tree_inorder_ascending(node->left);
+          intern_vec.push_back(*(node->key));
+          tree_inorder_ascending(node->right);
         }
       }
 
       // Traverse the BST and return all sorted nodes in the descending order.
-      void tree_inorder_descending(struct btree *node, vector<T>& arr) {
-        if (root != NULL) {
-          tree_inorder_ascending(node->right, arr);
-          arr.push_back(node->key);
-          tree_inorder_ascending(node->left, arr);
+      void tree_inorder_descending(struct btree *node) {
+        if (node != NULL) {
+          tree_inorder_descending(node->right);
+          intern_vec.push_back(*(node->key));
+          tree_inorder_descending(node->left);
         }
       }
 
@@ -69,14 +83,8 @@ namespace do_sort {
           // Node release the node and make to point to NULL.
           delete node;
 
-          if (node->left != NULL) {
-            node->left = NULL;
-          }
-
-          if (node->right != NULL) {
-            node->right = NULL;
-          }
-
+          node->left = NULL;
+          node->right = NULL;
           node = NULL;
         }
       }
@@ -90,7 +98,15 @@ namespace do_sort {
 
       // Return number of nodes in the tree.
       LL tree_num_nodes(struct btree *node) {
-        return node ? num_nodes(node->left) + num_nodes(node->right) + 1 : 0;
+        return node ? tree_num_nodes(node->left) +
+                      tree_num_nodes(node->right) + 1
+                    : 0;
+      }
+
+      LL clear_tree() {
+        root = NULL;
+        num_nodes = 0;
+        intern_vec.clear();
       }
 
     protected:
@@ -99,33 +115,39 @@ namespace do_sort {
       }
 
       // Insert a key into a BST. It will remain sorted.
-      void insert(T key) {
+      void insert(T *key) {
+        ++num_nodes;
         tree_insert(root, key);
       }
 
       // Dump the BST in ascending or descending order.
-      void dump(vector<T>& arr, bool asc) {
+      void dump(vector<T>& vec, bool asc) {
         if (asc) {
-          tree_inorder_ascending(root, arr);
+          tree_inorder_ascending(root);
         } else {
-          tree_inorder_descending(root, arr);
+          tree_inorder_descending(root);
         }
+
+        vec = intern_vec;
       }
 
       // Destroy the current tree.
       void destroy() {
         tree_destroy(root);
+        clear_tree();
       }
 
     public:
       BST() {
-        root = NULL;
+        clear_tree();
       }
 
       virtual ~BST() {
         // If the tree is not destroyed yet, destroy it before the class'
         // instance is being released.
-        tree_destroy(root);
+        if (num_nodes > 0) {
+          destroy();
+        }
       }
   };
 }

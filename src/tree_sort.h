@@ -9,17 +9,17 @@ using namespace std;
 namespace do_sort {
   // --- Tree sort.
   template <class T>
-  class tree_sort : public sort<T>, public BST<T> {
+  class tree_sort : public sort<T>, private BST<T> {
     private:
       void create_tree(vector<T>& v, LL n) {
         // Construct the BST from the input data.
-        for (LL i = 1; i < n; i++) {
-          BST<T>::insert(v[i]);
+        for (LL i = 0; i < n; i++) {
+          BST<T>::insert(&v[i]);
         }
       }
 
       void read_tree(vector<T>& v, bool asc) {
-        v.clear();
+        // Dump the tree either in ascending or descending order.
         BST<T>::dump(v, asc);
       }
 

@@ -86,8 +86,12 @@ using namespace std;
 
 // Check whether the list is correctly sorted.
 template <typename T>
-bool is_sorted(do_sort::sort<T>* ss, bool asc, const map<T, int>& m) {
-  if (ss->empty()) {
+bool is_sorted(do_sort::sort<T>* ss, bool asc, const map<T, int>& m, int s) {
+  if (ss->size() != s) {
+    return false;
+  }
+
+  if (ss->empty() && s == 0) {
     return true;
   }
 
@@ -136,10 +140,11 @@ void report_test_result(do_sort::sort<T>* ss,
                         const map<T, int>& m,
                         string sorting_method,
                         LD elapsed_time,
+                        int s,
                         bool asc) {
   string test_result;
 
-  if (is_sorted(ss, asc, m)) {
+  if (is_sorted(ss, asc, m, s)) {
     test_result = "\033[32mPASSED";
   } else {
     test_result = "\033[31mFAILED";
@@ -321,7 +326,6 @@ void run_test(do_sort::sort<T> *ptr,
               vector<T>& v3,
               vector<T>& v4,
               bool asc) {
-
   vector<T> v;
 
   map<T, int> m1;
@@ -337,11 +341,13 @@ void run_test(do_sort::sort<T> *ptr,
   // Random data is generated only for numeric types.
   ptr->set_data(v1);
   fillMap(v1, m1);
+
   LD elapsed_time = ptr->do_sort(true, asc);
   report_test_result(ptr,
                      m1,
                      method_name + " [normal case #0]",
                      elapsed_time,
+                     ptr->size(),
                      asc);
 
   if (dump) {
@@ -354,6 +360,7 @@ void run_test(do_sort::sort<T> *ptr,
                      m1,    // This is not used because the vector is empty.
                      method_name + " [corner case #1]",
                      0.0,
+                     ptr->size(),
                      asc);
 
   ptr->clear_data();
@@ -364,6 +371,7 @@ void run_test(do_sort::sort<T> *ptr,
                      m2,
                      method_name + " [corner case #2]",
                      0.0,
+                     ptr->size(),
                      asc);
 
   if (dump) {
@@ -378,6 +386,7 @@ void run_test(do_sort::sort<T> *ptr,
                      m3,
                      method_name + " [corner case #3]",
                      0.0,
+                     ptr->size(),
                      asc);
 
   if (dump) {
@@ -392,6 +401,7 @@ void run_test(do_sort::sort<T> *ptr,
                      m4,
                      method_name + " [corner case #4]",
                      0.0,
+                     ptr->size(),
                      asc);
 
   if (dump) {
