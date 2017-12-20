@@ -2,7 +2,7 @@ IDIR = src
 CC = gcc
 CFLAGS = -I$(IDIR)
 CXX = g++
-CXXFLAGS = -I$(DIR) -O3
+CXXFLAGS = -I$(DIR) -O3 -std=c++11
 
 ODIR = src
 LDIR = lib
