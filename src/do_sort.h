@@ -71,6 +71,32 @@ namespace do_sort {
              v.begin() + (high - num + 1));
       }
 
+      // Heapify a subtree rooted with node "i" which is an index in the vector
+      // "v". If the "i" is set to zero then the whole tree will be heapified.
+      void heapify(vector<T>& v, LL n,  LL i, bool asc) {
+        LL hit_ind = i;
+        LL l = 2 * i + 1;
+        LL r = 2 * i + 2;
+
+        // Check whether the hit node (largest or smallest) is the root node,
+        // otherwise set the hit to point to the child of the root.
+        if (asc) {
+          hit_ind = (l < n && v[l] > v[hit_ind]) ? l : hit_ind;
+          hit_ind = (r < n && v[r] > v[hit_ind]) ? r : hit_ind;
+        } else {
+          hit_ind = (l < n && v[l] < v[hit_ind]) ? l : hit_ind;
+          hit_ind = (r < n && v[r] < v[hit_ind]) ? r : hit_ind;
+        }
+
+        if (hit_ind != i) {
+          // The hit node was not the root node. Swap the root with child and
+          // then start the heapifying process recursively from the newly hit
+          // node.
+          swap(v[i], v[hit_ind]);
+          heapify(v, n, hit_ind, sort<T>::asc);
+        }
+      }
+
     public:
       sort() {
       }
@@ -121,7 +147,10 @@ namespace do_sort {
         return t;
       }
 
-      // Return the size of the sorted data.
+      // Return the size of the sorted data. The size data type is signed by
+      // purpose. Otherwise some other sorting algorithms such as quick sort
+      // might fail as they would find some termination condition when the size
+      // is negative.
       LL size() {
         return (LL)v.size();
       }
