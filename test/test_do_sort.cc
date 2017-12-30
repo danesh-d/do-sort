@@ -13,6 +13,7 @@
 #include "../src/shell_sort.h"
 #include "../src/tree_sort.h"
 #include "../src/heap_sort.h"
+#include "../src/comb_sort.h"
 
 #define DATA_SIZE 42000
 #define CUST_DATA_SIZE 10
@@ -573,6 +574,19 @@ void type_specific_test(string type,
            v4,
            asc);
   delete hs;
+
+  // Unit test for the Comb sort.
+  do_sort::comb_sort<T> *cs = new do_sort::comb_sort<T>();
+  run_test(static_cast<do_sort::sort<T>*>(cs),
+           "Comb Sort",
+           false,
+           type,
+           v1,
+           v2,
+           v3,
+           v4,
+           asc);
+  delete cs;
 }
 
 int main() {
