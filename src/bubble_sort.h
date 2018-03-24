@@ -16,7 +16,6 @@ namespace do_sort {
         if (n <= 1) {
           return;
         }
-
         LL upper_bound = n - 1;
         LL lower_bound = 0;
         bool swapped = true;

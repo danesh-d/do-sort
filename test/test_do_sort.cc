@@ -178,7 +178,7 @@ void init_int(vector<int>& v1,
               vector<int>& v3,
               vector<int>& v4,
               LL s) {
-  srand((unsigned)time(NULL));
+  srand((unsigned)time(nullptr));
 
   v1.clear();
   v2.clear();
@@ -205,7 +205,7 @@ void init_float(vector<float>& v1,
                 vector<float>& v3,
                 vector<float>& v4,
                 LL s) {
-  srand((unsigned)time(NULL));
+  srand((unsigned)time(nullptr));
 
   v1.clear();
   v2.clear();
@@ -232,7 +232,7 @@ void init_double(vector<double>& v1,
                  vector<double>& v3,
                  vector<double>& v4,
                  LL s) {
-  srand((unsigned)time(NULL));
+  srand((unsigned)time(nullptr));
 
   v1.clear();
   v2.clear();
@@ -259,7 +259,7 @@ void init_char(vector<char>& v1,
                vector<char>& v3,
                vector<char>& v4,
                LL s) {
-  srand((unsigned)time(NULL));
+  srand((unsigned)time(nullptr));
 
   v1.clear();
   v2.clear();
@@ -291,7 +291,7 @@ void init_str(vector<string>& v1,
               vector<string>& v4,
               LL s,
               LL l) {
-  srand((unsigned)time(NULL));
+  srand((unsigned)time(nullptr));
 
   v1.clear();
   v2.clear();

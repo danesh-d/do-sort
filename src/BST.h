@@ -29,14 +29,14 @@ namespace do_sort {
       struct btree* newNode(T *key) {
         struct btree *temp = new btree;
         temp->key = key;
-        temp->left = temp->right = NULL;
+        temp->left = temp->right = nullptr;
 
         return temp;
       }
 
       struct btree* tree_insert(struct btree *node, T *key) {
         // If the tree is empty, return a new node.
-        if (node == NULL) {
+        if (node == nullptr) {
           // The first node is always root.
           if (num_nodes == 1) {
             root = newNode(key);
@@ -56,7 +56,7 @@ namespace do_sort {
 
       // Traverse the BST and return all sorted nodes in the ascending order.
       void tree_inorder_ascending(struct btree *node) {
-        if (node != NULL) {
+        if (node != nullptr) {
           tree_inorder_ascending(node->left);
           intern_vec.push_back(*(node->key));
           tree_inorder_ascending(node->right);
@@ -65,7 +65,7 @@ namespace do_sort {
 
       // Traverse the BST and return all sorted nodes in the descending order.
       void tree_inorder_descending(struct btree *node) {
-        if (node != NULL) {
+        if (node != nullptr) {
           tree_inorder_descending(node->right);
           intern_vec.push_back(*(node->key));
           tree_inorder_descending(node->left);
@@ -75,19 +75,19 @@ namespace do_sort {
       // Destroy the subtree from a node, or the whole tree if node points to
       // the root of the BST.
       void tree_destroy(struct btree *node) {
-        if (node != NULL) {
+        if (node != nullptr) {
           // First destroy subtrees.
           tree_destroy(node->left);
           tree_destroy(node->right);
 
-          // Node release the node and make to point to NULL.
+          // Node release the node and make to point to nullptr.
           delete node;
 
           --num_nodes;
 
-          node->left = NULL;
-          node->right = NULL;
-          node = NULL;
+          node->left = nullptr;
+          node->right = nullptr;
+          node = nullptr;
         }
       }
 
@@ -109,14 +109,14 @@ namespace do_sort {
       }
 
       LL clear_tree() {
-        root = NULL;
+        root = nullptr;
         num_nodes = 0;
         intern_vec.clear();
       }
 
     protected:
       bool is_empty() {
-        return (root == NULL);
+        return (root == nullptr);
       }
 
       // Insert a key into a BST. It will remain sorted.

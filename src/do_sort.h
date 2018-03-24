@@ -26,7 +26,7 @@ namespace do_sort {
       bool asc;         // Specify the order of sorting.
 
       // Each sorting algorithm will implement this funciton which will not be
-      // explicitely called but from "do_sort" public functionk.
+      // explicitely called but from "do_sort" public function.
       virtual void specific_do_sort() = 0;
 
       // Merge two sorted lists.
@@ -106,15 +106,22 @@ namespace do_sort {
       }
 
       // Fill the vector with the input data.
-      void set_data(vector<T>& arr) {
+      virtual size_t set_data(vector<T>& arr) {
         // Note that while the vector's data i.e. header, metadata and control
         // parameters are stored on the stack (which is not a big part of the
         // whole data), the elements themselves will be stored on the heap which
         // will be managed internally by the C++ container.
         v = arr;
+
+        return v.size();
       }
 
-      void clear_data() {
+      // Return the data explicitely at given index.
+      virtual T get_data_at(size_t i) {
+        return v[i];
+      }
+
+      virtual void clear_data() {
         v.clear();
       }
 
@@ -126,8 +133,8 @@ namespace do_sort {
         }
       }
 
-      LD do_sort(bool elapsed_time,
-                     bool asc = true) {
+      virtual LD do_sort(bool elapsed_time,
+                 bool asc = true) {
         LD t = 0.0;
 
         this->asc = asc;
@@ -160,6 +167,13 @@ namespace do_sort {
         return v.empty();
       }
 
+      // Get the whole sorted data at once. Might not be efficient for large
+      // data.
+      vector<T> getResult() {
+        return v;
+      }
+
+      // Access sorted data by array indexing.
       T operator[](size_t i) {
         return v[i];
       }
