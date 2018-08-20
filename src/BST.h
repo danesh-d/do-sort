@@ -52,6 +52,8 @@ namespace do_sort {
         } else if (key > node->key) {
           node->right = tree_insert(node->right, key);
         }
+
+        return node;
       }
 
       // Traverse the BST and return all sorted nodes in the ascending order.
@@ -108,7 +110,7 @@ namespace do_sort {
                     : 0;
       }
 
-      LL clear_tree() {
+      void clear_tree() {
         root = nullptr;
         num_nodes = 0;
         intern_vec.clear();
